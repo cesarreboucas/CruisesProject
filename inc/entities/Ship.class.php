@@ -4,6 +4,7 @@ class Ships {
 
     private $id;
     private $name;
+    private $yearService;
 
     public function setShipID($newID) {
         $this->id = $newID;
@@ -11,6 +12,10 @@ class Ships {
     
     public function setShipName($newName) {
         $this->name = $newName;
+    }
+
+    public function setShipYear($newyear) {
+        $this->yearservice = $newyear;
     }
     
     public function getShipID() {
@@ -20,6 +25,11 @@ class Ships {
     public function  getShipName() {
         return $this->name;
     }
+
+    public function getShipYear() {
+        return $this->$yearService;
+    }
+
 }
 
 ?>
