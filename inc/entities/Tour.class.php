@@ -18,6 +18,10 @@ class Tour {
     private $to_city;
     private $oneway;
 
+    private $to_city_name;
+    private $from_city_name;
+    private $ship_name;
+
     //Getters
     public function getId() : int {
         return $this->id;
@@ -40,6 +44,18 @@ class Tour {
 
     public function getOneway() : int {
         return $this->oneway;
+    }
+
+    public function getToCityName() : int {
+        return $this->to_city_name;
+    }
+
+    public function getFromCityName() : int {
+        return $this->from_city_name;
+    }
+
+    public function getShipName() : int {
+        return $this->ship_name;
     }
 
     // Setters

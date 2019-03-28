@@ -23,13 +23,13 @@ class PageIndex {
                 </div>
                 <div id="navbarBasicExample" class="navbar-menu">
                   <div class="navbar-start">
-                    <a class="navbar-item">Ships</a>
-                    <a class="navbar-item">Tours</a>
+                    <a class="navbar-item" href="ships.php">Ships</a>
+                    <a class="navbar-item" href="index.php">Tours</a>
                     <div class="navbar-item has-dropdown is-hoverable">
                       <a class="navbar-link">Others</a>
                       <div class="navbar-dropdown">
-                        <a class="navbar-item">Cities</a>
-                        <a class="navbar-item">Facilities</a>
+                        <a class="navbar-item" href="cities.php">Cities</a>
+                        <a class="navbar-item" href="facilities.php">Facilities</a>
                       </div>
                     </div>
                   </div>
