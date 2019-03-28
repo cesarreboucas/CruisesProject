@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS CRUISES;
 CREATE DATABASE CRUISES;
-use cruises;
+use CRUISES;
 
 DROP TABLE IF EXISTS cities;
 CREATE TABLE IF NOT EXISTS cities (
@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS ships;
 CREATE TABLE IF NOT EXISTS ships (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
+  yearservice int(5) NOT NULL,
   PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS facilities;
@@ -25,10 +26,10 @@ CREATE TABLE IF NOT EXISTS tours (
   id int NOT NULL AUTO_INCREMENT,
   sailing_date date DEFAULT NULL,
   duration int NOT NULL,
-  title varchar(100) NOT NULL,
   ship int NOT NULL,
   from_city int NOT NULL,
   to_city int NOT NULL,
+  oneway int(1) not null,
   PRIMARY KEY (id),
   FOREIGN KEY (from_city) REFERENCES cities.id,
   FOREIGN KEY (to_city) REFERENCES cities.id,
@@ -54,17 +55,20 @@ CREATE TABLE IF NOT EXISTS facilities_ship (
 insert into cities(name) values 
   ('Alaska'),
   ('Bahamas'),
-  ('Australia'),
+  ('Aruba'),
+  ('Curacao'),
   ('Caribbean'),
-  ('Panama Canal'),
-  ('Mexico');
+  ('Vancouver'),
+  ('Puerto Rico'),
+  ('Jamaica'),
+  ('US Virgin Islands');
 
-insert into ships(name) values 
-  ('Polar Bear'),
-  ('Grizzly Bear'),
-  ('Black Bear'),
-  ('Brown Bear'),
-  ('Spirit Bear');
+insert into ships(name,yearservice) values 
+  ('Polar Bear',2008),
+  ('Grizzly Bear',2013),
+  ('Black Bear',2009),
+  ('Brown Bear',2015),
+  ('Spirit Bear',2012);
 
 insert into facilities(name) values 
   ('Olympic Swiming Pool'),
@@ -75,3 +79,25 @@ insert into facilities(name) values
   ('Casino'),
   ('Tennis Courts'),
   ('Water Slide');
+
+insert into tours (sailing_date,duration,ship,from_city,to_city,oneway) values 
+  ('2019-11-27',  7, 1, 6, 1, 0),
+  ('2019-08-22',  9, 2, 8, 9, 1),
+  ('2019-08-22', 14, 2, 6, 2, 0);
+
+insert into attractions (attraction, tour) values 
+  ('Phill Show',1),
+  ('Cirque',2),
+  ('Someone else show',2),
+  ('Justin show',2);
+
+insert into facilities_ship (facilities,ship) values 
+  (1,1),
+  (5,2),
+  (4,3),
+  (3,4),
+  (4,5),
+  (4,6),
+  (3,6),
+  (2,7),
+  (2,8);
