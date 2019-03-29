@@ -27,7 +27,7 @@ class Tour {
         return $this->id;
     }
     public function getSailingDate()  {
-        return $this->sailing_date;
+        return DateTime::createFromFormat("Y-m-d", $this->sailing_date );
     }
     public function getDuration() : int {
         return $this->duration;
@@ -46,15 +46,15 @@ class Tour {
         return $this->oneway;
     }
 
-    public function getToCityName() : int {
+    public function getToCityName() : String {
         return $this->to_city_name;
     }
 
-    public function getFromCityName() : int {
+    public function getFromCityName() : String {
         return $this->from_city_name;
     }
 
-    public function getShipName() : int {
+    public function getShipName() : String {
         return $this->ship_name;
     }
 
