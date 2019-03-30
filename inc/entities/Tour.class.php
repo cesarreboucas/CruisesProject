@@ -10,13 +10,14 @@ class Tour {
     // to_city int NOT NULL,
     // oneway int(1) not null,
 
-    private $id;
-    private $sailing_date;
-    private $duration;
-    private $ship;
-    private $from_city;
-    private $to_city;
-    private $oneway;
+    private $id = 0;
+    private $sailing_date = null;
+    private $duration = 0;
+    private $ship = 0;
+    private $from_city = 0;
+    private $to_city = 0;
+    private $oneway =
+     0;
 
     private $to_city_name;
     private $from_city_name;
@@ -26,8 +27,17 @@ class Tour {
     public function getId() : int {
         return $this->id;
     }
-    public function getSailingDate()  {
-        return DateTime::createFromFormat("Y-m-d", $this->sailing_date );
+    public function getSQLSailingDate() {
+        return $this->sailing_date;
+    }
+
+    public function getFormatedSailingDate() : String {
+        $date = @DateTime::createFromFormat("Y-m-d", $this->sailing_date );
+        if($date) {
+            return $date->format('d-M-Y');
+        } else {
+            return 'Unavailable';
+        }
     }
     public function getDuration() : int {
         return $this->duration;
@@ -75,7 +85,7 @@ class Tour {
         $this->from_city = $city;
     }
     public function setToCity(int $city) {
-        $this->to_city = $cit;
+        $this->to_city = $city;
     }
 
     public function setOneway(int $ow) {

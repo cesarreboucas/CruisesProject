@@ -42,7 +42,7 @@ class PageCities {
                 <button class="button is-link">Submit</button>
             </div>
         </div>
-
+        </form>
     <?php
     }
 }
