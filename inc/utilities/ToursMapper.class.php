@@ -5,8 +5,18 @@ class ToursMapper {
     static function initialize() {
         self::$db = new PDOAgent('Tour');
     }
-
-    static function getTours() {
+    // +--------------+---------+------+-----+---------+----------------+
+    // | Field        | Type    | Null | Key | Default | Extra          |
+    // +--------------+---------+------+-----+---------+----------------+
+    // | id           | int(11) | NO   | PRI | NULL    | auto_increment |
+    // | sailing_date | date    | YES  |     | NULL    |                |
+    // | duration     | int(11) | NO   |     | NULL    |                |
+    // | ship         | int(11) | NO   | MUL | NULL    |                |
+    // | from_city    | int(11) | NO   | MUL | NULL    |                |
+    // | to_city      | int(11) | NO   | MUL | NULL    |                |
+    // | oneway       | int(1)  | NO   |     | NULL    |                |
+    // +--------------+---------+------+-----+---------+----------------+
+    static function getTours() : Array{
         self::$db->query('select t.id,t.sailing_date,t.ship,t.duration,t.from_city,t.to_city,
                 t.oneway, c.name as to_city_name, ci.name as from_city_name, s.name as ship_name
             from tours t
@@ -16,6 +26,59 @@ class ToursMapper {
         self::$db->execute();
         return self::$db->resultSet();
     }
+    static function getTour(int $id) :Tour {
+        self::$db->query('select id,sailing_date,duration,ship,from_city,to_city,oneway from tours
+            where id = :id limit 1;');
+        self::$db->bind(':id', $id);
+        self::$db->execute();
+        return self::$db->singleResult();
+    }
+
+    static function addTour(Tour $tour) : int {
+        self::$db->query('insert into tours (sailing_date, duration, ship, from_city, 
+            to_city, oneway) values (:sailing_date, :duration, :ship, :from_city, 
+            :to_city, :oneway);');
+        $data = array(
+            ':sailing_date' => $tour->getSQLSailingDate(),
+            ':duration' => $tour->getDuration(),
+            ':ship' => $tour->getShip(),
+            ':from_city' => $tour->getFromCity(),
+            ':to_city' => $tour->getToCity(),
+            ':oneway' => $tour->getOneway()
+        );
+        self::$db->execute($data);
+        return self::$db->lastInsertId();
+    }
+
+    static function editTour(Tour $tour) : int {
+        self::$db->query('update tours set  
+            sailing_date = :sailing_date,
+            duration = :duration,
+            ship = :ship,
+            from_city = :from_city,
+            to_city = :to_city,
+            oneway = :oneway
+            where id = :id limit 1;');
+            $data = array(
+                ':sailing_date' => $tour->getSQLSailingDate(),
+                ':duration' => $tour->getDuration(),
+                ':ship' => $tour->getShip(),
+                ':from_city' => $tour->getFromCity(),
+                ':to_city' => $tour->getToCity(),
+                ':oneway' => $tour->getOneway(),
+                ':id' => $tour->getId()
+            );
+            self::$db->execute($data);
+            return self::$db->rowCount();
+    }
+
+    static function deleteTour(int $id) : int {
+        self::$db->query('delete from tours where id = :id limit 1;');
+        self::$db->bind(':id', $id);
+        self::$db->execute();
+        return self::$db->rowCount();
+    }
+
 }
 
 ?>
