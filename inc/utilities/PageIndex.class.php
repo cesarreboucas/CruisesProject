@@ -33,6 +33,7 @@ class PageIndex {
                       <div class="navbar-dropdown">
                         <a class="navbar-item" href="cities.php">Cities</a>
                         <a class="navbar-item" href="facilities.php">Facilities</a>
+                        <a class="navbar-item" href="facilitiesShip.php">Ship Facilities</a>
                       </div>
                     </div>
                   </div>
