@@ -99,7 +99,7 @@ class PageFacilitiesShip{
  
                        <?php foreach($s as $ship){   ?>
  
-                       <OPTION value="<?php echo $ship->shipID?>"><?php echo $ship->shipName?></OPTION>'; 
+                       <OPTION value="<?php echo $ship->getShip()?>"><?php echo $ship->shipName?></OPTION>'; 
  
                      
                      <?php    } ?>
@@ -155,11 +155,11 @@ class PageFacilitiesShip{
            <div class="select is-fullwidth">
                <select name="shipOptions">
                    <option value="0">Please Select a Ship</option>
-                   <option value="<?php echo $updateOptions->shipID?>" selected><?php echo $updateOptions->shipName?></option>
+                   <option value="<?php echo $updateOptions->getShip()?>" selected><?php echo $updateOptions->shipName?></option>
                    <?php foreach($s as $ship){   ?>
 
 
-                   <OPTION value="<?php echo $ship->shipID?>"><?php echo $ship->shipName?></OPTION>'; 
+                   <OPTION value="<?php echo $ship->getShip()?>"><?php echo $ship->shipName?></OPTION>'; 
 
                  
                  <?php    } ?>
@@ -177,7 +177,7 @@ class PageFacilitiesShip{
             <div class="select is-fullwidth">
                 <select name="facilityOptions">
                     <option value="0">Please Select a Facility</option>
-                    <option value="<?php echo $updateOptions->facilityID?>" selected><?php echo $updateOptions->facilityName?></option>
+                    <option value="<?php echo $updateOptions->getFacilities()?>" selected><?php echo $updateOptions->facilityName?></option>
 
                     <?php foreach($f as $option){   ?>
 
