@@ -54,7 +54,7 @@ class PageFacilitiesShip{
 
 
     static function searchForm(){   ?>
-
+        <BR>
         <h1 class="title is-3" >Search for Ships based on Facilities</h1>
                 
                 <form METHOD="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
@@ -74,7 +74,7 @@ class PageFacilitiesShip{
                             <div class="field is-grouped">
                                 <div class="control">
                                     <BR>
-                                    <button class="button is-link">Submit</button>
+                                    <button class="button is-link" name="searchButton">Submit</button>
                                 </div>
                             </div>
                 </form>
