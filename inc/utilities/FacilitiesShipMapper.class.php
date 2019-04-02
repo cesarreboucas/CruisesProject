@@ -26,7 +26,7 @@ class FacilitiesShipMapper{
 
     static function selectShips() : Array {
 
-        $dropboxSelect = "SELECT DISTINCT s.name as shipName, s.id as shipID
+        $dropboxSelect = "SELECT DISTINCT s.name as shipName, s.id as ship
                                     FROM ships s";
 
         self::$db->query($dropboxSelect);

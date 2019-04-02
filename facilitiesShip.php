@@ -30,7 +30,7 @@ if(!empty($_GET)){
         case 'edit':
 
             $updateFS = FacilitiesShipMapper::getFS($_GET["id"]);
-            var_dump($updateFS);
+            //var_dump($updateFS);
             break;
     }
 }
@@ -60,7 +60,7 @@ if(!empty($_POST)){
         case 'search':
            $search = FacilitiesShipMapper::search($_POST['searchValue']);
            //var_dump($search);
-           PageFacilitiesShip::displaySearchResults($search);
+            PageFacilitiesShip::displaySearchResults($search);
             break;
     }
 }
