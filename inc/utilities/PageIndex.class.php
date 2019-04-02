@@ -31,6 +31,7 @@ class PageIndex {
                     <div class="navbar-item has-dropdown is-hoverable">
                       <a class="navbar-link">Others</a>
                       <div class="navbar-dropdown">
+                      <a class="navbar-item" href="attractions.php">Attractions</a>
                         <a class="navbar-item" href="cities.php">Cities</a>
                         <a class="navbar-item" href="facilities.php">Facilities</a>
                         <a class="navbar-item" href="facilitiesShip.php">Ship Facilities</a>
