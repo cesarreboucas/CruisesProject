@@ -63,6 +63,11 @@ static function showAttractions($attractions) {
                   }
                   ?>
               </select>
+
+              <script>
+                document.getElementById('tour').value = "<?php echo $attraction->getAttractionTour(); ?>";
+              </script>
+
             </div>
           </div>
           

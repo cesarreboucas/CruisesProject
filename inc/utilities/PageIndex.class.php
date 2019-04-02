@@ -119,6 +119,7 @@ class PageIndex {
     } else {
         echo '<tr><th colspan="7">Sorry, no Tours to show.</th></tr>';
     }
+
     echo '</table>';
 
     if($tour->getId()==0) {
@@ -139,12 +140,14 @@ class PageIndex {
       <label class="label">Ship</label>
       <div class="select is-fullwidth">
         <select name="ship" id="ship">
+
           <option value="0">Select Ship</option>
       <?php
           foreach($ships as $ship) {
             echo '<option value="'.$ship->getShipID().'">'.$ship->getShipName().'</option>';
           }
       ?>
+
         </select>
     </div>
     </div>
