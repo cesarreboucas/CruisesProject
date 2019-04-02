@@ -127,6 +127,7 @@ class FacilitiesShipMapper{
                                 JOIN facilities_ship fs ON fs.ship = s.id
                                 JOIN facilities f ON f.id = fs.facilities
                                 WHERE f.name LIKE :facility
+                                ORDER BY s.name
                             ';
 
                     self::$db->query($select);

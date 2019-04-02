@@ -41,7 +41,8 @@ class PageCities {
             <div class="control">
                 <button class="button is-link">Submit</button>
             </div>
-        </div>
+            <BR>
+        </div><BR>
         </form>
     <?php
     }
