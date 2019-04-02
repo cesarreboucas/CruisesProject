@@ -25,6 +25,34 @@ class PageFacilitiesShip{
         echo '</table>';
             }
 
+            static function displaySearchResults($searchShips){
+        
+                echo '<BR><div class="select is-fullwidth">
+                <label class="label">Results for "'. $_POST['searchValue'].'"</label>';
+                
+                echo '<table class="table" style="width:100%;">
+                <tr>
+                <th>Ship Name</th>
+                <th>Ship Year</th>
+                <th>Ship Facilities</th>
+                    </tr>';
+            foreach($searchShips as $search) {
+                echo '<tr>
+                    <td>'.$search->shipName.'</td>
+                    <td>'.$search->yearservice.'</td>
+                    <td>'.$search->facilityName.'</td>
+                </tr>
+                ';
+            }
+        
+            echo '<tr><td></td><td></td>
+            <td>Search Result:   '. count($searchShips).'</td></tr></table> <HR><BR>';
+            
+                }
+        
+
+
+
     static function searchForm(){   ?>
 
         <h1 class="title is-3" >Search for Ships based on Facilities</h1>
