@@ -25,6 +25,13 @@ class PageFacilitiesShip{
         echo '</table>';
             }
 
+    static function searchForm(){
+
+
+
+
+    }
+
     static function addForm($s, $f){ ?>
         <HR>
         <h1 class="title is-3" >Add Facility to Ship</h1>
