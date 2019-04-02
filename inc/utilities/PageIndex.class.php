@@ -105,6 +105,10 @@ echo '</table>';
   static function FormTour($tour) {
     CitiesMapper::Initialize();
     $cities = CitiesMapper::getCities();
+
+    ShipsMapper::initialize();
+    $ships = ShipsMapper::getShips();
+    
     if($tour->getId()==0) {
       echo '<h3 class="title is-3">Add Tour</h3>';
     } else {
@@ -123,11 +127,14 @@ echo '</table>';
       <label class="label">Ship</label>
       <div class="select is-fullwidth">
         <select name="ship" id="ship">
-          <option value="0">Select Ship</option>
-          <option value="1">1 Sei la</option>
-          <option value="2">2 Sei la</option>
-          <option value="3">3 Sei la</option>
-          <option value="4">4 Sei la</option>
+        <option value="0">Select Ship</option>
+        <?php 
+            if(!empty($ships)) {
+              foreach($ships as $ship) {
+                echo '<option value="'.$ship->getShipID().'">'.$ship->getShipName().'</option>';
+              }
+            }
+            ?>
         </select>
     </div>
     </div>

@@ -30,7 +30,7 @@ class ShipsMapper {
 
     static function deleteShip(String $id) {
         try {
-            $sql = "delete from Ships where id = :id;";
+            $sql = "update Ships set active=0 where id = :id;";
             self::$db->query($sql);
             self::$db->bind(':id', $id);
             self::$db->execute();
@@ -43,10 +43,28 @@ class ShipsMapper {
     }
 
     static function getShips() {
-        $sql = 'select * from Ships;';
+        $sql = 'select * from Ships where active=1;';
         self::$db->query($sql);
         self::$db->execute();
         return self::$db->resultSet();
+    }
+
+    static function getShip(String $id) {
+        $sql = 'select * from Ships where id = :id;';
+        self::$db->query($sql);
+        self::$db->bind(':id',$id);
+        self::$db->execute();
+        return self::$db->singleResult();
+    }
+
+    static function updateShip(Ships $updateShip) {
+        $sql = 'update Ships set name = :name, yearservice = :yearservice
+                where id = :id;';
+        self::$db->query($sql);
+        self::$db->bind(':id', $updateShip->getShipID());
+        self::$db->bind(':name', $updateShip->getShipName());
+        self::$db->bind(':yearservice', $updateShip->getShipYear());
+        self::$db->execute();
     }
 
 }
