@@ -58,16 +58,34 @@ class PageIndex {
                 }
               });
               </script>
-              <div id="container" style="margin:auto;width:90%;">
+              <div id="container" style="margin:auto;width:95%;">
     <?php
     }
 
-  static function showTours($tours) {
-    if(!empty($tours)) {
+  static function showTours($tour, $tours, $cities, $facilities) {
       echo '
       <div class="columns">
-        <div class="column">Filters</div>  
-        <div class="column is-11">';
+        <div class="column">
+          <p class="title is-5">Filters</p>
+          <p class="title is-6" style="margin:15px 0px 0px 0px;">Departure</p>';
+          foreach($cities as $city) {
+              echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Departure&addfilter='.$city->getId().'">'.
+                trim($city->getName()).'</a></br>';
+            }
+          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Destiny</p>';
+            foreach($cities as $city) {
+              echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Destiny&addfilter='.$city->getId().'">'.
+                trim($city->getName()).'</a></br>';
+            }
+          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Facilities</p>';
+          foreach($facilities as $facility) {
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Destiny&addfilter='.$facility->getId().'">'.
+              trim($facility->getName()).'</a></br>';
+          }
+          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Ships</p>
+          <a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">Clear Filters</a>
+        </div>  
+        <div class="column is-10">';
 
         echo '<table class="table" style="width:100%;">
         <tr>
@@ -79,32 +97,26 @@ class PageIndex {
           <th>One-Way</th>
           <th>Actions</th>
         </tr>';
-foreach($tours as $tour) {
-  echo '<tr>
-      <td>'.$tour->getShipName().'</td>
-      <td>'.$tour->getFormatedSailingDate().'</td>
-      <td style="text-align:right;">'.$tour->getDuration().'</td>
-      <td>'.$tour->getFromCityName().'</td>
-      <td>'.$tour->getToCityName().'</td>
-      <td>'.($tour->getOneway()==1?'One Way':'Round Trip').'</td>
-      <td>
-        <a href="'.$_SERVER['PHP_SELF'].'?id='.$tour->getId().'&a=e" class="button is-primary">Edit</a>
-        <a href="'.$_SERVER['PHP_SELF'].'?id='.$tour->getId().'&a=d" class="button is-warning">Delete</a>
-      </td>
-    </tr>';
-}
-echo '</table>';  
-
-        
-      echo '</div>
-      </div>';
-      
-      
+    if(!empty($tours)) {
+      foreach($tours as $t) {
+        echo '<tr>
+            <td>'.$t->getShipName().'</td>
+            <td>'.$t->getFormatedSailingDate().'</td>
+            <td style="text-align:right;">'.$t->getDuration().'</td>
+            <td>'.$t->getFromCityName().'</td>
+            <td>'.$t->getToCityName().'</td>
+            <td>'.($t->getOneway()==1?'One Way':'Round Trip').'</td>
+            <td>
+              <a href="'.$_SERVER['PHP_SELF'].'?id='.$t->getId().'&a=e" class="button is-primary">Edit</a>
+              <a href="'.$_SERVER['PHP_SELF'].'?id='.$t->getId().'&a=d" class="button is-warning">Delete</a>
+            </td>
+          </tr>';
+      } 
+    } else {
+        echo '<tr><th colspan="7">Sorry, no Tours to show.</th></tr>';
     }
-  }
-  static function FormTour($tour) {
-    CitiesMapper::Initialize();
-    $cities = CitiesMapper::getCities();
+    echo '</table>';
+
     if($tour->getId()==0) {
       echo '<h3 class="title is-3">Add Tour</h3>';
     } else {
@@ -194,6 +206,15 @@ echo '</table>';
           
     </script>
   <?php
+    
+
+    echo '</div>
+      </div>';
+  }
+  
+  static function FormTour($tour, $cities) {
+    
+    
   }
 
   static function showErrors(Array $errors = array()) {
