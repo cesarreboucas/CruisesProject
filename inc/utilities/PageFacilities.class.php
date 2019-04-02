@@ -64,14 +64,18 @@ class PageFacilities{
         <div class="control">
             <label class="label">Facilities</label>
             </div>
+            
             <input type="hidden" name="facilityID" value="<?php echo $facility->getId(); ?>">
             <div class="control">
+            
                 <input class="input" type="input" name="name" value="<?php echo $facility->getName(); ?>">
+                <BR>
         </div>
         <div class="field is-grouped">
             <div class="control">
+            <BR>
                 <button class="button is-link">Submit</button>
-                <BR><BR>
+               
             </div>
         </div>
         </form>
