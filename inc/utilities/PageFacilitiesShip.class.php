@@ -25,11 +25,34 @@ class PageFacilitiesShip{
         echo '</table>';
             }
 
-    static function searchForm(){
+    static function searchForm(){   ?>
 
-
-
-
+        <h1 class="title is-3" >Search for Ships based on Facilities</h1>
+                
+                <form METHOD="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
+        
+                    <input type="hidden" name="post" value="search">
+                    <div class="field">
+                     <label class="label">Facility Name:</label>
+                       </div>
+                      
+                       <div class="select is-fullwidth">
+                       <input class="input" type="text" name="searchValue" placeholder="Facility Name"> 
+                
+         
+                       </div>
+               
+        
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <BR>
+                                    <button class="button is-link">Submit</button>
+                                </div>
+                            </div>
+                </form>
+        
+        
+          <?php
     }
 
     static function addForm($s, $f){ ?>
