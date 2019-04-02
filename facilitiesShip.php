@@ -15,6 +15,7 @@ require_once('inc/utilities/FacilitiesMapper.class.php');
 
 require_once('inc/utilities/PageIndex.class.php');
 require_once('inc/utilities/PageFacilitiesShip.class.php');
+require_once('inc/utilities/Validation.class.php');
 
 PageIndex::header();
 
@@ -35,35 +36,44 @@ if(!empty($_GET)){
     }
 }
 
-
 if(!empty($_POST)){
-    switch($_POST['post']){
-        case 'add':
-            $newFS = new Facilities_Ship();
 
-            $newFS->setShip($_POST["shipOptions"]);
-            $newFS->setFacilities($_POST["facilityOptions"]);
+    $errors = Validation::validateFacilitiesShip();
 
-            FacilitiesShipMapper::addNewFS($newFS);
-            break;
+        if(!empty($errors)){
+
+            PageIndex::showErrors($errors);
+            
+        }else{
+
+            switch($_POST['post']){
+                case 'add':
+                    $newFS = new Facilities_Ship();
         
-        case 'update':
-            $update = new Facilities_Ship();
+                    $newFS->setShip($_POST["shipOptions"]);
+                    $newFS->setFacilities($_POST["facilityOptions"]);
+        
+                    FacilitiesShipMapper::addNewFS($newFS);
+                    break;
+                
+                case 'update':
+                    $update = new Facilities_Ship();
+        
+                    $update->setID($_POST["fsid"]);
+                    $update->setFacilities($_POST["facilityOptions"]);
+                    $update->setShip($_POST["shipOptions"]);
+        
+                    FacilitiesShipMapper::editFS($update);
+                    break;
 
-            $update->setID($_POST["fsid"]);
-            $update->setFacilities($_POST["facilityOptions"]);
-            $update->setShip($_POST["shipOptions"]);
-
-            FacilitiesShipMapper::editFS($update);
-            break;
-
-        case 'search':
-           $search = FacilitiesShipMapper::search($_POST['searchValue']);
-           //var_dump($search);
-            PageFacilitiesShip::displaySearchResults($search);
-            break;
-    }
-}
+                case 'search':
+                    $search = FacilitiesShipMapper::search($_POST['searchValue']);
+                    //var_dump($search);
+                    PageFacilitiesShip::displaySearchResults($search);
+                    break;
+                }
+            }
+        }
 
 
 

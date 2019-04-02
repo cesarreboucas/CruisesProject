@@ -10,6 +10,7 @@ require_once('inc/utilities/PDOAgent.class.php');
 require_once('inc/utilities/FacilitiesMapper.class.php');
 require_once('inc/utilities/PageIndex.class.php');
 require_once('inc/utilities/PageFacilities.class.php');
+require_once('inc/utilities/Validation.class.php');
 
 PageIndex::header();
 
@@ -31,26 +32,38 @@ if(!empty($_GET)){
 
 
 if(!empty($_POST)){
-    switch($_POST['post']){
-        case 'add':
-            $newFacility = new Facilities();
 
-            $newFacility->setName($_POST["name"]);
+    $errors = Validation::validateFacilities();
 
-            FacilitiesMapper::addFacility($newFacility);
-            break;
-        
-        case 'update':
-            $updateFacility = new Facilities();
+    if(!empty($errors)){
 
-            $updateFacility->setID($_POST["facilityID"]);
-            $updateFacility->setName($_POST["name"]);
-            $updateFacility->setActive($_POST["active"]);
+        PageIndex::showErrors($errors);
 
-            FacilitiesMapper::editFacility($updateFacility);
-            break;
+    }else{
+
+        switch($_POST['post']){
+            case 'add':
+                $newFacility = new Facilities();
+    
+                $newFacility->setName($_POST["name"]);
+    
+                FacilitiesMapper::addFacility($newFacility);
+                break;
+            
+            case 'update':
+                $updateFacility = new Facilities();
+    
+                $updateFacility->setID($_POST["facilityID"]);
+                $updateFacility->setName($_POST["name"]);
+                $updateFacility->setActive($_POST["active"]);
+    
+                FacilitiesMapper::editFacility($updateFacility);
+                break;
+        }
     }
 }
+
+    
 
 
 $facilities = FacilitiesMapper::getFacilities();

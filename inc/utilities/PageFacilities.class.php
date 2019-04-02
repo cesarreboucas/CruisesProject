@@ -67,13 +67,6 @@ class PageFacilities{
             <input type="hidden" name="facilityID" value="<?php echo $facility->getId(); ?>">
             <div class="control">
                 <input class="input" type="input" name="name" value="<?php echo $facility->getName(); ?>">
-            </div>
-            <div class="control">
-            <label class="label">Active Status</label>
-            </div>
-            <div class="control">
-                <input class="input" type="input" name="active" value="<?php echo $facility->getActive(); ?>" placeholder="Active 1, Not Active 0">
-            </div>
         </div>
         <div class="field is-grouped">
             <div class="control">
