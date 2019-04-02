@@ -16,13 +16,31 @@ class ToursMapper {
     // | to_city      | int(11) | NO   | MUL | NULL    |                |
     // | oneway       | int(1)  | NO   |     | NULL    |                |
     // +--------------+---------+------+-----+---------+----------------+
-    static function getTours() : Array{
+    static function getTours($filters) : Array{
+        $fStr = "";
+        if(!empty($filters)) {
+            foreach($filters as $key => $filter) {
+                switch($key) {
+                    case 'Departure':
+                        $field = 't.from_city';
+                        break;
+                    case 'Destiny':
+                        $field = 't.to_city';
+                        break;
+                }
+                $fStr .= ' '.$field.' = '.$filter.' and ';
+            }
+            $fStr = substr($fStr, 0, (strlen($fStr)-4));
+            $fStr = ' where ('.$fStr.')';
+            //echo $fStr;
+        }
+        
         self::$db->query('select t.id,t.sailing_date,t.ship,t.duration,t.from_city,t.to_city,
                 t.oneway, c.name as to_city_name, ci.name as from_city_name, s.name as ship_name
             from tours t
             inner join cities c on c.id = t.to_city
             inner join cities ci on ci.id = t.from_city
-            inner join ships s on s.id = t.ship ;');
+            inner join ships s on s.id = t.ship '.$fStr.';');
         self::$db->execute();
         return self::$db->resultSet();
     }

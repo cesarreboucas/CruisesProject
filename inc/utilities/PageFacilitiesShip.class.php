@@ -25,6 +25,64 @@ class PageFacilitiesShip{
         echo '</table>';
             }
 
+            static function displaySearchResults($searchShips){
+        
+                echo '<BR><div class="select is-fullwidth">
+                <label class="label">Results for "'. $_POST['searchValue'].'"</label>';
+                
+                echo '<table class="table" style="width:100%;">
+                <tr>
+                <th>Ship Name</th>
+                <th>Ship Year</th>
+                <th>Ship Facilities</th>
+                    </tr>';
+            foreach($searchShips as $search) {
+                echo '<tr>
+                    <td>'.$search->shipName.'</td>
+                    <td>'.$search->yearservice.'</td>
+                    <td>'.$search->facilityName.'</td>
+                </tr>
+                ';
+            }
+        
+            echo '<tr><td></td><td></td>
+            <td>Search Result:   '. count($searchShips).'</td></tr></table> <HR><BR>';
+            
+                }
+        
+
+
+
+    static function searchForm(){   ?>
+
+        <h1 class="title is-3" >Search for Ships based on Facilities</h1>
+                
+                <form METHOD="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
+        
+                    <input type="hidden" name="post" value="search">
+                    <div class="field">
+                     <label class="label">Facility Name:</label>
+                       </div>
+                      
+                       <div class="select is-fullwidth">
+                       <input class="input" type="text" name="searchValue" placeholder="Facility Name"> 
+                
+         
+                       </div>
+               
+        
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <BR>
+                                    <button class="button is-link">Submit</button>
+                                </div>
+                            </div>
+                </form>
+        
+        
+          <?php
+    }
+
     static function addForm($s, $f){ ?>
         <HR>
         <h1 class="title is-3" >Add Facility to Ship</h1>

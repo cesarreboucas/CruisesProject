@@ -11,7 +11,7 @@ class FacilitiesShipMapper{
 
     static function getShipFacilities() : Array {
 
-        $select = "select   fs.id as id, s.id as shipID, s.name as shipName, s.yearservice, f.name as facilityName
+        $select = "select   fs.id as id, s.id as ship, s.name as shipName, s.yearservice, f.name as facilityName, f.id as facilities
                             from ships s 
                             JOIN facilities_ship fs ON fs.ship = s.id
                             JOIN facilities f ON f.id = fs.facilities
@@ -51,11 +51,7 @@ class FacilitiesShipMapper{
 
     static function getFS(int $id) {
 
-        // $select = "select fs.id, s.id as shipID, s.name as shipName, f.name as facilityName, f.id as facilityID
-        //  from facilities_ship fs, ships s, facilities f
-        //  WHERE  fs.id = :fsid";
-
-        $select = "select   fs.id, s.id as shipID, s.name as shipName, f.id as facilityID, f.name as facilityName
+        $select = "select   fs.id, s.id as ship, s.name as shipName, f.id as facilities, f.name as facilityName
                             from ships s 
                             JOIN facilities_ship fs ON fs.ship = s.id
                             JOIN facilities f ON f.id = fs.facilities
@@ -120,6 +116,25 @@ class FacilitiesShipMapper{
                         return false;
                     }
                     return true;
+            }
+
+            static function search(string $facility) : Array {
+
+                $searchValue = "%$facility%";
+
+                $select = 'select  fs.id as id, s.id as shipID, s.name as shipName, s.yearservice, f.name as facilityName
+                                from ships s 
+                                JOIN facilities_ship fs ON fs.ship = s.id
+                                JOIN facilities f ON f.id = fs.facilities
+                                WHERE f.name LIKE :facility
+                            ';
+
+                    self::$db->query($select);
+                    self::$db->bind(":facility", $searchValue);
+                    self::$db->execute();
+
+                    return self::$db->resultSet();
+
             }
 
 }

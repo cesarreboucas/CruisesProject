@@ -16,8 +16,7 @@ class Tour {
     private $ship = 0;
     private $from_city = 0;
     private $to_city = 0;
-    private $oneway =
-     0;
+    private $oneway = 0;
 
     private $to_city_name;
     private $from_city_name;

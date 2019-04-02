@@ -28,8 +28,9 @@ if(!empty($_GET)){
             FacilitiesShipMapper::deleteFS($_GET["id"]);
             break;
         case 'edit':
-        
+
             $updateFS = FacilitiesShipMapper::getFS($_GET["id"]);
+            var_dump($updateFS);
             break;
     }
 }
@@ -38,23 +39,29 @@ if(!empty($_GET)){
 if(!empty($_POST)){
     switch($_POST['post']){
         case 'add':
-        $newFS = new Facilities_Ship();
+            $newFS = new Facilities_Ship();
 
-        $newFS->setShip($_POST["shipOptions"]);
-        $newFS->setFacilities($_POST["facilityOptions"]);
+            $newFS->setShip($_POST["shipOptions"]);
+            $newFS->setFacilities($_POST["facilityOptions"]);
 
-        FacilitiesShipMapper::addNewFS($newFS);
-        break;
+            FacilitiesShipMapper::addNewFS($newFS);
+            break;
         
         case 'update':
-        $update = new Facilities_Ship();
+            $update = new Facilities_Ship();
 
-        $update->setID($_POST["fsid"]);
-        $update->setFacilities($_POST["facilityOptions"]);
-        $update->setShip($_POST["shipOptions"]);
+            $update->setID($_POST["fsid"]);
+            $update->setFacilities($_POST["facilityOptions"]);
+            $update->setShip($_POST["shipOptions"]);
 
-        FacilitiesShipMapper::editFS($update);
-        break;
+            FacilitiesShipMapper::editFS($update);
+            break;
+
+        case 'search':
+           $search = FacilitiesShipMapper::search($_POST['searchValue']);
+           //var_dump($search);
+           PageFacilitiesShip::displaySearchResults($search);
+            break;
     }
 }
 
@@ -71,13 +78,16 @@ $allFacilities = FacilitiesMapper::getFacilities();
 $allShips = FacilitiesShipMapper::selectShips();
 //var_dump($allShips);
 
+PageFacilitiesShip::searchForm();
+
+
 //display the facilities and their corresponding ships
 PageFacilitiesShip::displayShipFacilties($facilities);
 
 
 if(!empty($_GET) && $_GET['action'] == "edit"){
 
-    PageFacilitiesShip::editForm($allShips, $allFacilities, $updateFS);
+        PageFacilitiesShip::editForm($allShips, $allFacilities, $updateFS);
 }else{
 
         //display the add form with dynamic dropdown menus
