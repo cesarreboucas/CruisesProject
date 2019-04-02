@@ -62,28 +62,32 @@ class PageIndex {
     <?php
     }
 
-  static function showTours($tour, $tours, $cities, $facilities) {
+  static function showTours($tour, $tours, $cities, $facilities, $ships) {
       echo '
       <div class="columns">
         <div class="column">
           <p class="title is-5">Filters</p>
           <p class="title is-6" style="margin:15px 0px 0px 0px;">Departure</p>';
           foreach($cities as $city) {
-              echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Departure&addfilter='.$city->getId().'">'.
-                trim($city->getName()).'</a></br>';
+              echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Departure&addfilter='.$city->getId().'"
+                id="a_dep'.$city->getId().'">'.trim($city->getName()).'</a></br>';
             }
           echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Destiny</p>';
-            foreach($cities as $city) {
-              echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Destiny&addfilter='.$city->getId().'">'.
-                trim($city->getName()).'</a></br>';
+          foreach($cities as $city) {
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Destiny&addfilter='.$city->getId().'" 
+              id="a_des'.$city->getId().'">'.trim($city->getName()).'</a></br>';
             }
-          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Facilities</p>';
+          /*echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Facilities</p>';
           foreach($facilities as $facility) {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Destiny&addfilter='.$facility->getId().'">'.
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Facility&addfilter='.$facility->getId().'">'.
               trim($facility->getName()).'</a></br>';
+          }*/
+          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Ships</p>';
+          foreach($ships as $ship) {
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Ship&addfilter='.$ship->getShipID().'"
+              id="a_ship'.$ship->getShipID().'">'.trim($ship->getShipName()).'</a></br>';
           }
-          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Ships</p>
-          <a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">Clear Filters</a>
+          echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">Clear Filters</a>
         </div>  
         <div class="column is-10">';
 
@@ -136,10 +140,11 @@ class PageIndex {
       <div class="select is-fullwidth">
         <select name="ship" id="ship">
           <option value="0">Select Ship</option>
-          <option value="1">1 Sei la</option>
-          <option value="2">2 Sei la</option>
-          <option value="3">3 Sei la</option>
-          <option value="4">4 Sei la</option>
+      <?php
+          foreach($ships as $ship) {
+            echo '<option value="'.$ship->getShipID().'">'.$ship->getShipName().'</option>';
+          }
+      ?>
         </select>
     </div>
     </div>
@@ -212,8 +217,23 @@ class PageIndex {
       </div>';
   }
   
-  static function FormTour($tour, $cities) {
-    
+  static function MarkFilters($filters) {
+    echo '<script>';
+    foreach($filters as $k => $f) {
+      switch($k) {
+        case 'Departure':
+          echo 'document.getElementById(\'a_dep'.$f.'\').style.fontWeight = "bold";';
+          break;
+        case 'Destiny':
+          echo 'document.getElementById(\'a_des'.$f.'\').style.fontWeight = "bold";';
+          break;
+        case 'Ship':
+          echo 'document.getElementById(\'a_ship'.$f.'\').style.fontWeight = "bold";';
+          break;
+      }
+    }
+    echo '</script>';
+    var_dump($filters);
     
   }
 

@@ -29,7 +29,7 @@ static function showAttractions($attractions) {
     static function showAttractionForm($attraction) {
 
       ToursMapper::initialize();
-      $tours = ToursMapper::getTours();
+      $tours = ToursMapper::getTours(array());
 
       if($attraction->getAttractionID() == 0){
         $title = "Add Attraction";

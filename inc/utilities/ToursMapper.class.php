@@ -27,12 +27,25 @@ class ToursMapper {
                     case 'Destiny':
                         $field = 't.to_city';
                         break;
+                    //case 'Facility':
+                    //    $field = 't.to_city';
+                    //    break;
+                    case 'Ship':
+                        $field = 't.ship';
+                        break;
+                    default: unset($field);
+                        break;
                 }
-                $fStr .= ' '.$field.' = '.$filter.' and ';
+                if(!empty($field)) {
+                    $fStr .= ' '.$field.' = '.$filter.' and ';
+                }
             }
             $fStr = substr($fStr, 0, (strlen($fStr)-4));
-            $fStr = ' where ('.$fStr.')';
-            //echo $fStr;
+            if(!empty($fStr)) {
+                $fStr = ' where ('.$fStr.')';    
+            } else {
+                $fStr = '';
+            }
         }
         
         self::$db->query('select t.id,t.sailing_date,t.ship,t.duration,t.from_city,t.to_city,
@@ -40,7 +53,7 @@ class ToursMapper {
             from tours t
             inner join cities c on c.id = t.to_city
             inner join cities ci on ci.id = t.from_city
-            inner join ships s on s.id = t.ship '.$fStr.';');
+            inner join ships s on s.id = t.ship '.$fStr.' order by t.sailing_date;');
         self::$db->execute();
         return self::$db->resultSet();
     }
