@@ -28,7 +28,7 @@ if(!empty($_GET)){
             FacilitiesShipMapper::deleteFS($_GET["id"]);
             break;
         case 'edit':
-        
+
             $updateFS = FacilitiesShipMapper::getFS($_GET["id"]);
             break;
     }
