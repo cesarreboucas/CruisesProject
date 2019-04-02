@@ -3,11 +3,13 @@
 require_once('inc/config.inc.php');
 require_once('inc/Entities/Tour.class.php');
 require_once('inc/Entities/City.class.php');
+require_once('inc/Entities/Ships.class.php');
 require_once('inc/Entities/Facilities.class.php');
 require_once('inc/utilities/PageIndex.class.php');
 require_once('inc/utilities/Validation.class.php');
 require_once('inc/utilities/ToursMapper.class.php');
 require_once('inc/utilities/CitiesMapper.class.php');
+require_once('inc/utilities/ShipsMapper.class.php');
 require_once('inc/utilities/FacilitiesMapper.class.php');
 require_once('inc/utilities/PDOAgent.class.php');
 session_start();
@@ -41,6 +43,9 @@ $cities = CitiesMapper::getCities();
 
 FacilitiesMapper::Initialize('Facilities');
 $facilities = FacilitiesMapper::getFacilities();
+
+ShipsMapper::Initialize();
+$ships = ShipsMapper::getShips();
 
 //var_dump($_POST);
 if($_SERVER['REQUEST_METHOD'] =='POST' && isset($_POST['id'])) {
@@ -83,8 +88,8 @@ if(!empty($errors)) {
     PageIndex::showErrors($errors);    
 }
 
-PageIndex::showTours($tour, $tours, $cities, $facilities);
-//PageIndex::FormTour($tour, $cities);
+PageIndex::showTours($tour, $tours, $cities, $facilities, $ships);
+PageIndex::MarkFilters($filters);
 
 //var_dump($tours);
 PageIndex::footer();
