@@ -16,14 +16,25 @@ class PageShips {
             echo '<tr>
             <td>'.$ship->getShipName().'</td>
             <td>'.$ship->getShipYear().'</td>
-            <td><a href="'.$_SERVER['PHP_SELF'].'?act=delete&shipID='.$ship->getShipID().'" class="button is-warning">Delete</a></td>
+            <td>
+              <a href="'.$_SERVER['PHP_SELF'].'?act=edit&shipID='.$ship->getShipID().'" class="button is-primary">Edit</a>
+              <a href="'.$_SERVER['PHP_SELF'].'?act=delete&shipID='.$ship->getShipID().'" class="button is-warning">Delete</a>
+            </td>
           </tr>';
         }
         echo '</tbody>
       </table>';
     }
 
-    static function showShipsForm()   { ?>
+    static function showShipsForm($ship)   { 
+
+    if($ship->getShipID() == 0){
+        $title = "Add Ship";
+      } else {
+        $title = "Edit Ship";
+        
+      }
+      ?>
 
       <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
       
@@ -32,19 +43,20 @@ class PageShips {
         <div class="field">
           <label class="label">Ship Name</label>
           <div class="control">
-            <input class="input" type="text" name="name" id="name" /> 
+            <input class="input" type="text" name="name" id="name" value="<?php echo $ship->getShipName();?>"/> 
           </div>
         </div>
 
         <div class="field">
           <label class="label">Year of Service</label>
           <div class="control">
-            <input class="input" type="text" name="year" id="year" /> 
+            <input class="input" type="text" name="year" id="year" value="<?php echo $ship->getShipYear();?>"/> 
           </div>
         </div>
 
         <div class="field">
           <div class="control">
+            <input type="hidden" name="shipID" value="<?php echo $ship->getShipID();?>">
             <button class="button is-link" type="submit">Submit</button>
           </div>
         </div>

@@ -16,19 +16,6 @@ class AttractionsMapper {
     | attraction | varchar(30) | NO   |     | NULL    |                |
     | tour       | int(11)     | NO   | MUL | NULL    |                |
     +------------+-------------+------+-----+---------+----------------+
-
-    mysql> desc tours;
-    +--------------+---------+------+-----+---------+----------------+
-    | Field        | Type    | Null | Key | Default | Extra          |
-    +--------------+---------+------+-----+---------+----------------+
-    | id           | int(11) | NO   | PRI | NULL    | auto_increment |
-    | sailing_date | date    | YES  |     | NULL    |                |
-    | duration     | int(11) | NO   |     | NULL    |                |
-    | ship         | int(11) | NO   | MUL | NULL    |                |
-    | from_city    | int(11) | NO   | MUL | NULL    |                |
-    | to_city      | int(11) | NO   | MUL | NULL    |                |
-    | oneway       | int(1)  | NO   |     | NULL    |                |
-    +--------------+---------+------+-----+---------+----------------+
     */
 
     static function createAttraction(Attractions $newAttraction) {
