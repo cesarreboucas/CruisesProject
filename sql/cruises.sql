@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS cities;
 CREATE TABLE IF NOT EXISTS cities (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(50) NOT NULL,
+  active boolean not null default 1,
   PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS ships;
@@ -13,12 +14,14 @@ CREATE TABLE IF NOT EXISTS ships (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
   yearservice int(5) NOT NULL,
+  active boolean not null default 1,
   PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS facilities;
 CREATE TABLE IF NOT EXISTS facilities (
     id int NOT NULL AUTO_INCREMENT,
     name varchar(45) NOT NULL,
+    active boolean not null default 1,
     PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS tours;
