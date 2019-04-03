@@ -61,12 +61,14 @@ class PageIndex {
               <div id="container" style="margin:auto;width:95%;">
     <?php
     }
-
-  static function showTours($tour, $tours, $cities, $facilities, $ships) {
+  // Showing the table tours and the aside filters
+  static function showTours($tour, $tours, $cities, $facilities, $ships, $attractions, $stats) {
       echo '
       <div class="columns">
-        <div class="column">
-          <p class="title is-5">Filters</p>
+        <div class="column">';
+          // Calling the stats card
+          self::showStat($stats);
+          echo '<p class="title is-5">Filters</p>
           <p class="title is-6" style="margin:15px 0px 0px 0px;">Departure</p>';
           foreach($cities as $city) {
               echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Departure&addfilter='.$city->getId().'"
@@ -77,17 +79,17 @@ class PageIndex {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Destiny&addfilter='.$city->getId().'" 
               id="a_des'.$city->getId().'">'.trim($city->getName()).'</a></br>';
             }
-          /*echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Facilities</p>';
-          foreach($facilities as $facility) {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Facility&addfilter='.$facility->getId().'">'.
-              trim($facility->getName()).'</a></br>';
-          }*/
+          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Atractions</p>';
+          foreach($attractions as $attraction) {
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Attraction&addfilter='.$attraction->getAttractionID().'"
+              id="a_atr'.$attraction->getAttractionID().'">'.trim($attraction->getAttractionName()).'</a></br>';
+          }
           echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Ships</p>';
           foreach($ships as $ship) {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Ship&addfilter='.$ship->getShipID().'"
               id="a_ship'.$ship->getShipID().'">'.trim($ship->getShipName()).'</a></br>';
           }
-          echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">Clear Filters</a>
+          echo '<br/><a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">Clear Filters</a>
         </div>  
         <div class="column is-10">';
 
@@ -116,9 +118,17 @@ class PageIndex {
             </td>
           </tr>';
       } 
+      echo '<tr><th colspan="7">
+        Your search returned '.sizeof($tours).' tours.</th></tr>';
     } else {
         echo '<tr><th colspan="7">Sorry, no Tours to show.</th></tr>';
     }
+    echo '<tr><th colspan="7" style="text-align:right;">
+      <a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">
+        Clear Filters
+      </a>
+      </th>
+      </tr>';
 
     echo '</table>';
 
@@ -233,10 +243,13 @@ class PageIndex {
         case 'Ship':
           echo 'document.getElementById(\'a_ship'.$f.'\').style.fontWeight = "bold";';
           break;
+        case 'Attraction':
+          echo 'document.getElementById(\'a_atr'.$f.'\').style.fontWeight = "bold";';
+          break;
       }
     }
     echo '</script>';
-    var_dump($filters);
+    
     
   }
 
@@ -269,6 +282,31 @@ class PageIndex {
             <?php echo $message; ?>
           </div>
         </article>
+  <?php
+  }
+  
+  static function showStat(Array $stats) {
+    ?>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">Tours Available by Month</p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <table>
+              <?php
+                if(!empty($stats)) {
+                  foreach($stats as $stat) {
+                    $date = DateTime::createFromFormat('Y-m', $stat->year."-".$stat->month);
+                    echo '<tr><td>'.$date->format('M-Y').'</td><td><strong>'.$stat->n.'<strong></tr>';
+                    
+                  }
+                }
+              ?>
+              </table>
+            </div>
+          </div>
+        </div><br/>
   <?php
   }
 

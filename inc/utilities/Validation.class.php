@@ -2,7 +2,9 @@
 
 class Validation {
     public static function validateCity($f, &$e) {
-        
+        if(strlen($_POST['name']) == 0){
+            $e[] = "City name is needed";
+        }
     }
 
     public static function validateTour(&$e, & $tour) {
