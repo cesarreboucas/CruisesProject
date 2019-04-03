@@ -30,7 +30,7 @@ class ToursMapper {
                         $field = 't.to_city';
                         break;
                     case 'Attraction':
-                        $field = 't.to_city';
+                        $field = 'a.id';
                         break;
                     case 'Ship':
                         $field = 't.ship';
