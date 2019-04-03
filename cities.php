@@ -15,6 +15,7 @@ CitiesMapper::initialize();
 
 $city = new City();
 
+// Deleting or Getting the City to Edit
 if(isset($_GET) && isset($_GET['a']) && is_numeric($_GET['id'])) {
     switch($_GET['a']) {
         case 'e':
@@ -38,10 +39,13 @@ if(isset($_GET) && isset($_GET['a']) && is_numeric($_GET['id'])) {
             $city->setId($_POST['id']);
             CitiesMapper::editCity($city);
         }
-        
-    }
+    } 
 }
 $cities = CitiesMapper::getCities();
+
+if(!empty($errors)) {
+    PageIndex::showErrors($errors);    
+}
 
 PageCities::showCities($cities);
 

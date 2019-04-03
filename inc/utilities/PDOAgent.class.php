@@ -43,7 +43,7 @@ class PDOAgent    {
         try {  
             $this->pdo = new PDO($dsn, $this->user, $this->pass, $options);  
             //Catch any errors
-        } catch (PDOException $e) {  
+        } catch (PDOException $e) { 
             $this->error = $e->getMessage();  
         }  
         
