@@ -37,12 +37,12 @@ if(isset($_GET['filter'])) {
     }    
 }
 
-
 $errors = array();
+PageIndex::header();
+
 ToursMapper::initialize();
 $tour = new Tour();
 
-PageIndex::header();
 // Initializing mappers to filters
 CitiesMapper::Initialize();
 $cities = CitiesMapper::getCities();
