@@ -93,6 +93,26 @@ class Validation {
             return $messages;
         }
 
+        public static function validateAttraction(& $e) {
+
+            if(empty($_POST['attraction']) || strlen(trim($_POST['attraction']))==0)
+                $e[] = 'Attraction name is missing.';
+    
+                settype($_POST['tour'], 'int');
+            if(empty($_POST['tour']) ||!is_integer($_POST['tour']) || $_POST['tour']==0 || $_POST['tour']=="0")
+                $e[] = ('Tour information is missing.');
+            
+        }
+    
+        public static function validateShip(& $e) {
+    
+            if(empty($_POST['name']) || strlen(trim($_POST['name']))==0)
+                $e[] = 'Ship name is missing.';
+    
+            settype($_POST['year'], 'int');
+            if(empty($_POST['year']) || !is_integer($_POST['year']) || $_POST['year']==0)
+                $e[] = ('Year of service is missing.');
+        }
 
 }
 
