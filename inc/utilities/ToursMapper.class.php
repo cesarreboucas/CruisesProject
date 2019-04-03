@@ -20,7 +20,6 @@ class ToursMapper {
     // Getting all tours applying the filters
     static function getTours($filters) : Array{
         $fStr = "";
-        var_dump($filters);
         if(!empty($filters)) {
             foreach($filters as $key => $filter) {
                 switch($key) {
