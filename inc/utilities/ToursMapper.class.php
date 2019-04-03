@@ -20,6 +20,7 @@ class ToursMapper {
     // Getting all tours applying the filters
     static function getTours($filters) : Array{
         $fStr = "";
+        var_dump($filters);
         if(!empty($filters)) {
             foreach($filters as $key => $filter) {
                 switch($key) {
@@ -30,7 +31,7 @@ class ToursMapper {
                         $field = 't.to_city';
                         break;
                     case 'Attraction':
-                        $field = 't.to_city';
+                        $field = 'a.id';
                         break;
                     case 'Ship':
                         $field = 't.ship';
