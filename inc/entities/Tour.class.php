@@ -16,8 +16,7 @@ class Tour {
     private $ship = 0;
     private $from_city = 0;
     private $to_city = 0;
-    private $oneway =
-     0;
+    private $oneway = 0;
 
     private $to_city_name;
     private $from_city_name;
@@ -27,16 +26,19 @@ class Tour {
     public function getId() : int {
         return $this->id;
     }
+
+    // Format date to the Database
     public function getSQLSailingDate() {
         return $this->sailing_date;
     }
 
+    // Format date to be shown on the page
     public function getFormatedSailingDate() : String {
         $date = @DateTime::createFromFormat("Y-m-d", $this->sailing_date );
         if($date) {
             return $date->format('d-M-Y');
         } else {
-            return 'Unavailable';
+            return 'Not Defined';
         }
     }
     public function getDuration() : int {

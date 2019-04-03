@@ -31,6 +31,8 @@ function getShip() : int {
     return $this->ship;
 }
 
+
+
 //Setters
 function setID(int $newID) {
 
