@@ -10,6 +10,7 @@ require_once('inc/utilities/ToursMapper.class.php');
 require_once('inc/utilities/PageIndex.class.php');
 require_once('inc/utilities/PageAttractions.class.php');
 
+PageIndex::header();
 $errors = array();
 AttractionsMapper::initialize();
 $attraction = new Attractions();
@@ -44,7 +45,7 @@ if(isset($_GET) && isset($_GET['act']) && is_numeric($_GET['attractionID'])) {
 
 $attractions = AttractionsMapper::getAttractions();
 
-PageIndex::header();
+//for($i=0;$i<100;++$i) {echo 'aaaaaaaaaaaaaaaaaaaaaaaaaa</br>';}
 PageAttractions::showAttractions($attractions);
 PageAttractions::showAttractionForm($attraction);
 PageIndex::footer();

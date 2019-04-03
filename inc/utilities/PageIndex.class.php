@@ -1,5 +1,7 @@
 <?php
 
+require_once('Log.class.php');
+
 class PageIndex {
   public static $title = "Cruises";
 
@@ -58,9 +60,10 @@ class PageIndex {
                 }
               });
               </script>
-              <div id="container" style="margin:auto;width:95%;">
+              <div id="container" style="margin:auto;width:95%;position:relative;min-height:100%">
     <?php
     }
+
   // Showing the table tours and the aside filters
   static function showTours($tour, $tours, $cities, $facilities, $ships, $attractions, $stats) {
       echo '
@@ -157,9 +160,8 @@ class PageIndex {
             echo '<option value="'.$ship->getShipID().'">'.$ship->getShipName().'</option>';
           }
       ?>
-
         </select>
-    </div>
+      </div>
     </div>
     <div class="field">
       <label class="label">Duration</label>
@@ -180,6 +182,7 @@ class PageIndex {
             }
             ?>
         </select>
+      </div>
     </div>
     <div class="field">
       <label class="label">Destiny</label>
@@ -210,26 +213,23 @@ class PageIndex {
     </div>
     </form>
     <script>
-          
           document.getElementById('ship').value = "<?php echo $tour->getShip(); ?>";
           document.getElementById('departure').value = "<?php echo $tour->getFromCity(); ?>";
           document.getElementById('destiny').value = "<?php echo $tour->getToCity(); ?>";
           if("<?php echo $tour->getOneWay(); ?>"=="1") {
             document.getElementById('oneway').checked = true;
-          }
-          console.log("<?php echo $tour->getOneWay(); ?>");
-          
+          }          
           let sailing = bulmaCalendar.attach('#sailing', 
             {"dateFormat":"DD-MMM-YYYY", "timeFormat": ""});
           
     </script>
+    </div>
+    </div>
   <?php
-    
 
-    echo '</div>
-      </div>';
   }
   
+  // Marking the active filters as bold
   static function MarkFilters($filters) {
     echo '<script>';
     foreach($filters as $k => $f) {
@@ -253,7 +253,14 @@ class PageIndex {
     
   }
 
-  static function showErrors(Array $errors = array()) {
+  // Show errors and log functions
+  static function showErrors(Array $errors = array(), $stackMessage = null) {
+        // Opens the log file
+        $log = Log::openLog();
+        // Shows a message in case of error opening the file
+        if($log==false) {
+          array_push($errors, "Impossible to log, please call the administrator");
+        }
     ?>
         <article class="message is-warning">
           <div class="message-header">
@@ -264,7 +271,14 @@ class PageIndex {
             <?php
               foreach($errors as $error) {
                 echo '<li> + '.$error.'</li>';
+                if($log==true) {
+                  Log::appendLog($error);
+                }
               }
+              if($stackMessage!=null) {
+                Log::appendLog($stackMessage);
+              }
+              Log::closeLog($error);
             ?>
             </ul>
           </div>
@@ -272,6 +286,7 @@ class PageIndex {
   <?php
   }
 
+  // Show (successfull) Messages to the user
   static function showMessages(String $message = 'Done') {
     ?>
         <article class="message is-warning">
@@ -285,6 +300,7 @@ class PageIndex {
   <?php
   }
   
+  // Show the number of tours avaible for each month
   static function showStat(Array $stats) {
     ?>
         <div class="card">
@@ -312,7 +328,12 @@ class PageIndex {
 
   static function footer() {
     ?>
+        
         </div>
+        <div style="padding-bottom:25px;"></div>
+        <footer style="position:absolute;bottom:0;width:100%;height:25px;text-align:center;">
+          <strong><h4>(Cruises) Ana Paula Ruiz Mendes - Cesar Reboucas - Lindsey Fergunson</h4></strong>
+        </footer >
       </body>
     </html>
   <?php

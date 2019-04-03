@@ -24,7 +24,8 @@ if(isset($_GET) && isset($_GET['a']) && is_numeric($_GET['id'])) {
             break;
         case 'd':
             // Deleting City
-            CitiesMapper::deleteCity($_GET['id']);
+            $n =  CitiesMapper::deleteCity($_GET['id']);
+            PageIndex::showMessages($n.' cities were deleted.');
             break;
     }
     // Executing Add and Edit
@@ -34,10 +35,14 @@ if(isset($_GET) && isset($_GET['a']) && is_numeric($_GET['id'])) {
         $city->setName($_POST['name']);
         if($_POST['id']==0) {
             // Add City
-            CitiesMapper::addCity($city);
+            $lid = CitiesMapper::addCity($city);
+            PageIndex::showMessages('City id->'.$lid.' added.');
         } else {
+            // Executing the edit
             $city->setId($_POST['id']);
-            CitiesMapper::editCity($city);
+            $n = CitiesMapper::editCity($city);
+            PageIndex::showMessages($n.' cities were edited.');
+            $city = new City();
         }
     } 
 }
@@ -51,6 +56,6 @@ PageCities::showCities($cities);
 
 PageCities::FotmCity($city);
 
-//var_dump($cities);
+PageIndex::footer();
 
 ?>
