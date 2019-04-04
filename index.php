@@ -101,7 +101,6 @@ if(!empty($errors)) {
 
 StatsMapper::initialize();
 $stats = StatsMapper::getDateProjection();
-//PageIndex::showStat($stats);
 // Showing Tours and Filters
 PageIndex::showTours($tour, $tours, $cities, $facilities, $ships, $attractions, $stats);
 PageIndex::MarkFilters($filters);

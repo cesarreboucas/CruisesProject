@@ -351,7 +351,7 @@ class PageIndex {
         
         </div>
         <footer>
-          <strong><h4>(Cruises) Ana Paula Ruiz Pontes - Cesar Reboucas - Lindsey Fergunson</h4></strong>
+          <strong><h4>(Cruises) Ana Paula Ruiz Pontes - Cesar Reboucas - Lindsey Gunderson</h4></strong>
           <img src="img/wave.png">
         </footer >
       </body>
