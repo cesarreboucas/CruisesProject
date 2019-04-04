@@ -1,13 +1,13 @@
 <?php
 
 require_once('inc/config.inc.php');
+require_once('inc/utilities/PageIndex.class.php');
 require_once('inc/entities/Attractions.class.php');
 require_once('inc/entities/Tour.class.php');
 require_once('inc/utilities/PDOAgent.class.php');
 require_once('inc/utilities/Validation.class.php');
 require_once('inc/utilities/AttractionsMapper.class.php');
 require_once('inc/utilities/ToursMapper.class.php');
-require_once('inc/utilities/PageIndex.class.php');
 require_once('inc/utilities/PageAttractions.class.php');
 
 PageIndex::header();
@@ -45,7 +45,6 @@ if(isset($_GET) && isset($_GET['act']) && is_numeric($_GET['attractionID'])) {
 
 $attractions = AttractionsMapper::getAttractions();
 
-//for($i=0;$i<100;++$i) {echo 'aaaaaaaaaaaaaaaaaaaaaaaaaa</br>';}
 PageAttractions::showAttractions($attractions);
 PageAttractions::showAttractionForm($attraction);
 PageIndex::footer();
