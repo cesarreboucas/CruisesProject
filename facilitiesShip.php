@@ -33,7 +33,7 @@ if(!empty($_GET)){
         case 'edit':
 
             $updateFS = FacilitiesShipMapper::getFS($_GET["id"]);
-            //var_dump($updateFS);
+           
             break;
     }
 }
