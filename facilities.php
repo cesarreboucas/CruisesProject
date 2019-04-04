@@ -88,5 +88,5 @@ if(!empty($_GET) && $_GET['action'] == "edit"){
     PageFacilities::addFacilitiesForm();
 }
 
-PageFacilities::facilitiiesFooter();
+PageIndex::footer();
 ?>

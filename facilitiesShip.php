@@ -111,5 +111,6 @@ if(!empty($_GET) && $_GET['action'] == "edit"){
         PageFacilitiesShip::addForm($allShips, $allFacilities);
 }
 
+PageIndex::footer();
 
 ?>
