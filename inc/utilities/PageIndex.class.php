@@ -15,6 +15,25 @@ class PageIndex {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
           <link rel="stylesheet" href="css/bulma-calendar.min.css">
           <script src="js/bulma-calendar.min.js"></script>
+          <style>
+            footer {
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              height: 60px;
+              width: 100%;
+              overflow:hidden;
+              text-align:center;
+            }
+            html {
+              position: relative;
+              min-height: 100%;
+            }
+            body {
+              margin: 0px 0px 60px 0px;
+              padding: 0px 0px 60px 0px;
+            }
+          </style>
         </head>
           <body>
             <nav class="navbar is-link" role="navigation" aria-label="main navigation">
@@ -60,7 +79,7 @@ class PageIndex {
                 }
               });
               </script>
-              <div id="container" style="margin:auto;width:95%;position:relative;min-height:100%">
+              <div id="container" style="margin:auto;width:95%;position:relative;">
     <?php
     }
 
@@ -225,6 +244,7 @@ class PageIndex {
     </script>
     </div>
     </div>
+    </div>
   <?php
 
   }
@@ -330,9 +350,9 @@ class PageIndex {
     ?>
         
         </div>
-        <div style="padding-bottom:25px;"></div>
-        <footer style="position:absolute;bottom:0;width:100%;height:25px;text-align:center;">
-          <strong><h4>(Cruises) Ana Paula Ruiz Mendes - Cesar Reboucas - Lindsey Fergunson</h4></strong>
+        <footer>
+          <strong><h4>(Cruises) Ana Paula Ruiz Pontes - Cesar Reboucas - Lindsey Fergunson</h4></strong>
+          <img src="img/wave.png">
         </footer >
       </body>
     </html>
