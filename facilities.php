@@ -21,6 +21,9 @@ if(!empty($_GET)){
          case 'delete':
 
             FacilitiesMapper::deleteFacility($_GET["id"]);
+
+            PageIndex::showMessages('Facility id->'.$_GET['id'].' removed.');
+
             break;
 
          case "edit":
@@ -47,7 +50,10 @@ if(!empty($_POST)){
     
                 $newFacility->setName($_POST["name"]);
     
-                FacilitiesMapper::addFacility($newFacility);
+                $id = FacilitiesMapper::addFacility($newFacility);
+
+                PageIndex::showMessages('Facility id->'.$id. ' added.');
+
                 break;
             
             case 'update':
@@ -55,9 +61,11 @@ if(!empty($_POST)){
     
                 $updateFacility->setID($_POST["facilityID"]);
                 $updateFacility->setName($_POST["name"]);
-                $updateFacility->setActive($_POST["active"]);
     
                 FacilitiesMapper::editFacility($updateFacility);
+                
+                PageIndex::showMessages('Facility id->'.$_POST['facilityID'].' updated.');
+
                 break;
         }
     }
@@ -73,6 +81,8 @@ PageFacilities::showFacilities($facilities);
 if(!empty($_GET) && $_GET['action'] == "edit"){
 
     PageFacilities::editFacilitiesForm($editFacility);
+
+
 }else{
 
     PageFacilities::addFacilitiesForm();

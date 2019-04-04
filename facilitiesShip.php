@@ -26,7 +26,9 @@ if(!empty($_GET)){
 
     switch($_GET['action']){
         case 'delete':
-            FacilitiesShipMapper::deleteFS($_GET["id"]);
+            $delete = FacilitiesShipMapper::deleteFS($_GET["id"]);
+            PageIndex::showMessages('Facility id->'.$_GET["id"]. ' removed.');
+
             break;
         case 'edit':
 
@@ -53,7 +55,9 @@ if(!empty($_POST)){
                     $newFS->setShip($_POST["shipOptions"]);
                     $newFS->setFacilities($_POST["facilityOptions"]);
         
-                    FacilitiesShipMapper::addNewFS($newFS);
+                    $n = FacilitiesShipMapper::addNewFS($newFS);
+
+                    PageIndex::showMessages('Facility id->'.$n. ' added.');
                     break;
                 
                 case 'update':
@@ -64,6 +68,8 @@ if(!empty($_POST)){
                     $update->setShip($_POST["shipOptions"]);
         
                     FacilitiesShipMapper::editFS($update);
+
+                    PageIndex::showMessages('Facility id->'.$_POST["fsid"]. ' updated.');
                     break;
 
                 case 'search':
