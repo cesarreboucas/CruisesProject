@@ -33,6 +33,7 @@ class PageFacilities{
     <h1 class="title is-3" >Add Facility</h1>
     
         <form METHOD="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
+        
         <input type="hidden" name="post" value="add">
         <div class="field">
             <label class="label">Facilities</label>
