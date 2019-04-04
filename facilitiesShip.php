@@ -22,6 +22,7 @@ PageIndex::header();
 FacilitiesShipMapper::initialize("Facilities_Ship");
 FacilitiesMapper::initialize("Facilities");
 
+
 if(!empty($_GET)){
 
     switch($_GET['action']){
