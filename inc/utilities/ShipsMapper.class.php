@@ -19,6 +19,7 @@ class ShipsMapper {
     +-------------+-------------+------+-----+---------+----------------+
     */
 
+    // Create - Add a new Ship to the database
     static function createShip(Ships $newShip) {
         $sql = 'insert into Ships(name, yearservice) values (:name, :yearservice)';
         self::$db->query($sql);
@@ -28,6 +29,7 @@ class ShipsMapper {
         return  self::$db->lastInsertId();
     }
 
+    // Delete - Inactivate a Ship to keep integrity and consistency of the database.
     static function deleteShip(String $id) {
         try {
             $sql = "update Ships set active=0 where id = :id;";
@@ -42,6 +44,7 @@ class ShipsMapper {
         }
     }
 
+    // Read - Get all Ships from database
     static function getShips() {
         $sql = 'select * from Ships where active=1 order by name asc;';
         self::$db->query($sql);
@@ -49,6 +52,7 @@ class ShipsMapper {
         return self::$db->resultSet();
     }
 
+    // Read - Get one Ship from database
     static function getShip(String $id) {
         $sql = 'select * from Ships where id = :id;';
         self::$db->query($sql);
@@ -57,6 +61,7 @@ class ShipsMapper {
         return self::$db->singleResult();
     }
 
+    // Update - Update a Ship that already exists in the database
     static function updateShip(Ships $updateShip) {
         $sql = 'update Ships set name = :name, yearservice = :yearservice
                 where id = :id;';

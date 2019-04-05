@@ -18,6 +18,7 @@ class AttractionsMapper {
     +------------+-------------+------+-----+---------+----------------+
     */
 
+    // Create - Add a new Attraction to the database
     static function createAttraction(Attractions $newAttraction) {
         $sql = 'insert into Attractions(attraction, tour) values (:attraction, :tour)';
         self::$db->query($sql);
@@ -27,6 +28,7 @@ class AttractionsMapper {
         return  self::$db->lastInsertId();
     }
 
+    // Delete - Delete an Attraction from Database
     static function deleteAttraction(String $id) {
         try {
             $sql = "delete from Attractions where id = :id;";
@@ -41,6 +43,7 @@ class AttractionsMapper {
         }
     }
 
+    // Read - Get all Attractions from database
     static function getAttractions() {
         $sql = 'select Attractions.id, Attractions.attraction, Attractions.tour, Ships.name as shipName, Tours.sailing_date
                 from Attractions, Tours, Ships
@@ -51,6 +54,7 @@ class AttractionsMapper {
         return self::$db->resultSet();
     }
 
+    // Read - Get one Attraction from database
     static function getAttraction(String $id) {
         $sql = 'select * from Attractions where id = :id;';
         self::$db->query($sql);
@@ -59,6 +63,7 @@ class AttractionsMapper {
         return self::$db->singleResult();
     }
 
+    // Update - Update an Attraction that already exists in the database
     static function updateAttraction(Attractions $updateAttraction) {
         $sql = 'update Attractions set attraction = :attraction, tour = :tour
                 where id = :id;';

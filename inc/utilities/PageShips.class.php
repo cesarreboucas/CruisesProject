@@ -2,7 +2,8 @@
 
 class PageShips {
 
-    static function showShips($ships) {
+  //Show all the ships in a table  
+  static function showShips($ships) {
         echo '<table class="table" style="width:100%;">
         <thead>
           <tr>
@@ -26,6 +27,7 @@ class PageShips {
       </table>';
     }
 
+    //Show Ships form (Add and Edit)
     static function showShipsForm($ship)   { 
 
     if($ship->getShipID() == 0){
@@ -38,22 +40,19 @@ class PageShips {
 
       <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
       
-      <h3 class="title is-3">Add Ship</h3>
-
+      <h3 class="title is-3"><?php echo $title; ?></h3>
         <div class="field">
           <label class="label">Ship Name</label>
           <div class="control">
-            <input class="input" type="text" name="name" id="name" value="<?php echo $ship->getShipName();?>"/> 
+            <input class="input" type="text" name="name" id="name" placeholder="Ship Name" value="<?php echo $ship->getShipName();?>"/> 
           </div>
         </div>
-
         <div class="field">
           <label class="label">Year of Service</label>
           <div class="control">
-            <input class="input" type="text" name="year" id="year" value="<?php echo $ship->getShipYear();?>"/> 
+            <input class="input" type="text" name="year" id="year" placeholder="Year of Service" value="<?php echo $ship->getShipYear();?>"/> 
           </div>
         </div>
-
         <div class="field">
           <div class="control">
             <input type="hidden" name="shipID" value="<?php echo $ship->getShipID();?>">
