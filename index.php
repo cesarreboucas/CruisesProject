@@ -63,9 +63,11 @@ if($_SERVER['REQUEST_METHOD'] =='POST' && isset($_POST['id'])) {
     Validation::validateTour($errors, $tour);
     if(empty($errors)) {
         if($_POST['id']==0) {
+            // Executing Add
             $id = ToursMapper::addTour($tour);
             PageIndex::showMessages('Tour '.$id.' added.');
         } else {
+            // Executing Edit
             $num = ToursMapper::editTour($tour);
             PageIndex::showMessages($num.' tour edited.');
         }
@@ -92,15 +94,18 @@ if(isset($_SESSION['filter'])) {
     $filters = $_SESSION['filter'];
 }
 
+// Retrieving the tours
 $tours = ToursMapper::getTours($filters);
 
-
+// Showing Errors
 if(!empty($errors)) {
     PageIndex::showErrors($errors);    
 }
 
+//Getting stats of departure
 StatsMapper::initialize();
 $stats = StatsMapper::getDateProjection();
+
 // Showing Tours and Filters
 PageIndex::showTours($tour, $tours, $cities, $facilities, $ships, $attractions, $stats);
 PageIndex::MarkFilters($filters);

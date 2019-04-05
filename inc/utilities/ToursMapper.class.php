@@ -23,6 +23,7 @@ class ToursMapper {
         $fStr = "";
         // String Joins (joins based on searchs)
         $joins = "";
+        // Setting the where clause and joins
         if(!empty($filters)) {
             foreach($filters as $key => $filter) {
                 switch($key) {
