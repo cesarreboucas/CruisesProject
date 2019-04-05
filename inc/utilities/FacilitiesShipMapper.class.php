@@ -9,6 +9,16 @@ class FacilitiesShipMapper{
         self::$db = new PDOAgent($className);
     }
 
+
+    /*///////////////////////////////////////////////////////////////////////////
+    /*                                                                        */
+    /*     The two functions below pull values from joining tables           */
+    /*                                                                      */
+    ///////////////////////////////////////////////////////////////////////*/
+
+    ////////////// READ - FOR FACILITIES ///////////////
+    //retrieve all the facilities and ships from the database where their ids match in both tables,
+    //display the ships and the facilties that they have
     static function getShipFacilities() : Array {
 
         $select = "select   fs.id as id, s.id as ship, s.name as shipName, s.yearservice, f.name as facilityName, f.id as facilities
@@ -23,7 +33,8 @@ class FacilitiesShipMapper{
         return self::$db->resultSet();
     }
 
-
+    ////////////// READ - FOR SHIPS VALUES ///////////////
+    //get all the ships from the ships table for the dropdown box
     static function selectShips() : Array {
 
         $dropboxSelect = "SELECT DISTINCT s.name as shipName, s.id as ship
@@ -35,6 +46,10 @@ class FacilitiesShipMapper{
         return self::$db->resultSet();
     }
 
+
+
+    ////////////// CREATE ///////////////
+    //add a new facility to a ship
     static function addNewFS(Facilities_Ship $fs) : int {
 
         $sqlInsert = "INSERT INTO facilities_ship (ship, facilities)
@@ -49,6 +64,8 @@ class FacilitiesShipMapper{
 
     }
 
+    ////////////// READ ///////////////
+    //retrieve the selected ship facility based on the id
     static function getFS(int $id) {
 
         $select = "select   fs.id, s.id as ship, s.name as shipName, f.id as facilities, f.name as facilityName
@@ -63,6 +80,9 @@ class FacilitiesShipMapper{
         return self::$db->singleResult();
     }
 
+
+    ////////////// UPDATE ///////////////
+    //edit a current facility attached to the ship
       static function editFS(Facilities_Ship $fs) : bool {
 
           $update = "UPDATE facilities_ship SET facilities =:updateFacilitiesID,
@@ -95,6 +115,9 @@ class FacilitiesShipMapper{
             return self::$db->rowCount();
             }
 
+
+        ////////////// DELETE ///////////////
+        //Delete a facility and ship relationship
             static function deleteFS(int $id) : bool {
 
                 $delete = "DELETE FROM facilities_ship WHERE id = :id";
@@ -118,6 +141,10 @@ class FacilitiesShipMapper{
                     return true;
             }
 
+            ////////////// SEARCH FUNCTIONALITY ///////////////
+            //search for a facility and show what ships have that facility
+            //if customer is looking for specific facilities such as a Pool
+            //they would choose a cruise/tour the facilities to their liking
             static function search(string $facility) : Array {
 
                 $searchValue = "%$facility%";

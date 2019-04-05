@@ -2,6 +2,8 @@
 
 class PageFacilitiesShip{
 
+
+    //Display the results of Facilities and Ship tables from the Join in Mapper Class
     static function displayShipFacilties($shipFacilities){
 
         echo '<table class="table" style="width:100%;">
@@ -25,6 +27,7 @@ class PageFacilitiesShip{
         echo '</table>';
             }
 
+            //Display the results from the search value input
             static function displaySearchResults($searchShips){
         
                 echo '<BR><div class="select is-fullwidth">
@@ -52,7 +55,7 @@ class PageFacilitiesShip{
         
 
 
-
+    //Search Form
     static function searchForm(){   ?>
         <BR>
         <h1 class="title is-3" >Search for Ships based on Facilities</h1>
@@ -83,6 +86,8 @@ class PageFacilitiesShip{
           <?php
     }
 
+
+    //Add Facility to a Ship Form
     static function addForm($s, $f){ ?>
         <HR>
         <h1 class="title is-3" >Add Facility to Ship</h1>
@@ -141,6 +146,10 @@ class PageFacilitiesShip{
 
  <?php   }
 
+
+
+
+    //Edit Facility to a Ship Form
     static function editForm($s, $f, $updateOptions){ ?>
     <HR>
     <h1 class="title is-3" >Edit Ship Facilities</h1>

@@ -2,15 +2,18 @@
 
 class FacilitiesMapper{
 
+    //instantiate variable to hold db object
     static private $db;
 
+    //create the connection
     public static function initialize(string $className){
 
         self::$db = new PDOAgent($className);
 
     }
 
-
+    ////////////// READ ///////////////
+    //get all facilities from the database
     static function getFacilities() : Array {
 
         $sqlSelect = "SELECT * FROM Facilities;";
@@ -26,6 +29,8 @@ class FacilitiesMapper{
     }
 
 
+     ////////////// READ ///////////////
+    //get single result from databased deteremined by id
     static function getFacility(int $id) {
 
         $selectOne = "SELECT * FROM Facilities
@@ -39,6 +44,8 @@ class FacilitiesMapper{
     }
 
 
+     ////////////// CREATE ///////////////
+    //add a new facility to the database
     static function addFacility(Facilities $facility) : int {
 
         $sqlInsert = "INSERT INTO facilities (name)
@@ -52,6 +59,8 @@ class FacilitiesMapper{
     }
 
 
+     ////////////// UPDATE ///////////////
+    //edit a facility currently in the database
     static function editFacility(Facilities $facility) : bool {
 
         $sqlUpdate = "UPDATE facilities SET name = :updateName
@@ -82,7 +91,8 @@ class FacilitiesMapper{
             return self::$db->rowCount();
     }
 
-
+    ////////////// DELETE ///////////////
+    //delete a facility from the database
     static function deleteFacility(int $id) : bool {
 
         $sqlDelete = "DELETE FROM facilities WHERE id = :id";

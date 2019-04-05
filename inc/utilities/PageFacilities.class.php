@@ -3,6 +3,7 @@
 class PageFacilities{
 
 
+    //List all the facilities in a table
     static function showFacilities($facilities){
             echo '<table class="table" style="width:100%;">
                     <tr>
@@ -28,6 +29,8 @@ class PageFacilities{
 
             }
 
+
+    //Add facilties Form
     static function addFacilitiesForm(){ ?>
     <HR>
     <h1 class="title is-3" >Add Facility</h1>
@@ -57,6 +60,7 @@ class PageFacilities{
 
 <?php    }
 
+    //Edit facilities Form
  static function editFacilitiesForm($facility){ ?>
     <h1 class="title is-3" >Edit Facility</h1>
         <form METHOD="POST" action="./facilities.php" >
