@@ -1,20 +1,20 @@
 <?php
 
-require_once('inc/config.inc.php');
-require_once('inc/Entities/Tour.class.php');
-require_once('inc/Entities/City.class.php');
-require_once('inc/Entities/Ships.class.php');
-require_once('inc/Entities/Facilities.class.php');
-require_once('inc/Entities/Attractions.class.php');
-require_once('inc/utilities/PageIndex.class.php');
-require_once('inc/utilities/Validation.class.php');
-require_once('inc/utilities/ToursMapper.class.php');
-require_once('inc/utilities/CitiesMapper.class.php');
-require_once('inc/utilities/AttractionsMapper.class.php');
-require_once('inc/utilities/ShipsMapper.class.php');
-require_once('inc/utilities/FacilitiesMapper.class.php');
-require_once('inc/utilities/StatsMapper.class.php');
-require_once('inc/utilities/PDOAgent.class.php');
+require_once('inc/config.inc.php'); // Config
+require_once('inc/Entities/Tour.class.php'); // Main Entiti
+require_once('inc/Entities/City.class.php'); // Filter
+require_once('inc/Entities/Ships.class.php'); // Filter
+require_once('inc/Entities/Facilities.class.php'); // Filter
+require_once('inc/Entities/Attractions.class.php'); // Filter
+require_once('inc/utilities/PageIndex.class.php'); // Page
+require_once('inc/utilities/Validation.class.php'); // Validation
+require_once('inc/utilities/ToursMapper.class.php'); // Main Entity Support
+require_once('inc/utilities/CitiesMapper.class.php'); // Filter Support
+require_once('inc/utilities/AttractionsMapper.class.php'); // Filter Support
+require_once('inc/utilities/ShipsMapper.class.php'); // Filter Support
+require_once('inc/utilities/FacilitiesMapper.class.php'); // Filter Support
+require_once('inc/utilities/StatsMapper.class.php'); // Stats (StdClass)
+require_once('inc/utilities/PDOAgent.class.php'); // PDO, Finally :)
 session_start();
 
 // Filters Array
@@ -67,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] =='POST' && isset($_POST['id'])) {
             PageIndex::showMessages('Tour '.$id.' added.');
         } else {
             $num = ToursMapper::editTour($tour);
-            PageIndex::showMessages($num.' tours were edited.');
+            PageIndex::showMessages($num.' tour edited.');
         }
     } 
     // Creating a empty tour

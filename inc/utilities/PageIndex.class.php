@@ -111,6 +111,11 @@ class PageIndex {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Ship&addfilter='.$ship->getShipID().'"
               id="a_ship'.$ship->getShipID().'">'.trim($ship->getShipName()).'</a></br>';
           }
+          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Facilities</p>';
+          foreach($facilities as $facility) {
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Facility&addfilter='.$facility->getID().'"
+              id="a_fac'.$facility->getID().'">'.trim($facility->getName()).'</a></br>';
+          }
           echo '<br/><a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">Clear Filters</a>
         </div>  
         <div class="column is-10">';
@@ -251,22 +256,28 @@ class PageIndex {
   
   // Marking the active filters as bold
   static function MarkFilters($filters) {
+    $id = "";
     echo '<script>';
     foreach($filters as $k => $f) {
       switch($k) {
         case 'Departure':
-          echo 'document.getElementById(\'a_dep'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_dep'.$f.'\'';
           break;
         case 'Destiny':
-          echo 'document.getElementById(\'a_des'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_des'.$f.'\'';
           break;
         case 'Ship':
-          echo 'document.getElementById(\'a_ship'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_ship'.$f.'\'';
           break;
         case 'Attraction':
-          echo 'document.getElementById(\'a_atr'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_atr'.$f.'\'';          
+          break;
+        case 'Facility':
+          $id = '\'a_fac'.$f.'\'';
           break;
       }
+      echo 'document.getElementById('.$id.').style.fontWeight = "bold";
+        ';
     }
     echo '</script>';
     
