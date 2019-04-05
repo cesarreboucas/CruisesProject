@@ -52,8 +52,10 @@ if(!empty($errors)) {
     PageIndex::showErrors($errors);    
 }
 
+// Show Cities Table
 PageCities::showCities($cities);
 
+// Show Form
 PageCities::FotmCity($city);
 
 PageIndex::footer();

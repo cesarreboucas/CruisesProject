@@ -19,7 +19,11 @@ class ToursMapper {
 
     // Getting all tours applying the filters
     static function getTours($filters) : Array{
+        // Strinh filters (clause Where)
         $fStr = "";
+        // String Joins (joins based on searchs)
+        $joins = "";
+        // Setting the where clause and joins
         if(!empty($filters)) {
             foreach($filters as $key => $filter) {
                 switch($key) {
@@ -31,32 +35,38 @@ class ToursMapper {
                         break;
                     case 'Attraction':
                         $field = 'a.id';
+                        $joins .= ' left join attractions a on a.tour = t.id ';
                         break;
                     case 'Ship':
                         $field = 't.ship';
                         break;
+                    case 'Facility':
+                        $field = 'fs.facilities';
+                        $joins .= 'left join facilities_ship fs on fs.ship = s.id ';
+                        break;                        
                     default: unset($field);
                         break;
                 }
                 if(!empty($field)) {
-                    $fStr .= ' '.$field.' = '.$filter.' and ';
+                    $fStr .= ' '.$field.' = '.$filter.' and '; 
                 }
             }
+            // Removing the last ' and '
             $fStr = substr($fStr, 0, (strlen($fStr)-4));
             if(!empty($fStr)) {
+                // putting into where clause
                 $fStr = ' where ('.$fStr.')';    
-            } else {
-                $fStr = '';
             }
         }
-        
         self::$db->query('select t.id,t.sailing_date,t.ship,t.duration,t.from_city,t.to_city,
                 t.oneway, c.name as to_city_name, ci.name as from_city_name, s.name as ship_name
             from tours t
             inner join cities c on c.id = t.to_city
             inner join cities ci on ci.id = t.from_city
-            left join attractions a on a.tour = t.id
-            inner join ships s on s.id = t.ship '.$fStr.' order by t.sailing_date;');
+            inner join ships s on s.id = t.ship
+            '.$joins.'
+            '.$fStr.' group by t.id order by t.sailing_date;');
+        
         self::$db->execute();
         return self::$db->resultSet();
     }

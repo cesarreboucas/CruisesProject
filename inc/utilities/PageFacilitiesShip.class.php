@@ -31,7 +31,7 @@ class PageFacilitiesShip{
             static function displaySearchResults($searchShips){
         
                 echo '<BR><div class="select is-fullwidth">
-                <label class="label">Results for "'. $_POST['searchValue'].'"</label>';
+                <label class="label">Results for "'. $_POST['searchValue'].'"</label></div>';
                 
                 echo '<table class="table" style="width:100%;">
                 <tr>
@@ -52,8 +52,6 @@ class PageFacilitiesShip{
             <td>Search Result:   '. count($searchShips).'</td></tr></table> <HR><BR>';
             
                 }
-        
-
 
     //Search Form
     static function searchForm(){   ?>
@@ -64,25 +62,18 @@ class PageFacilitiesShip{
         
                     <input type="hidden" name="post" value="search">
                     <div class="field">
-                     <label class="label">Facility Name:</label>
-                       </div>
-                      
-                       <div class="select is-fullwidth">
+                         <label class="label">Facility Name:</label>
+                    </div>  
+                    <div class="field is-fullwidth">
                        <input class="input" type="text" name="searchValue" placeholder="Facility Name"> 
-                
-         
-                       </div>
-               
-        
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <BR>
-                                    <button class="button is-link" name="searchButton">Submit</button>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <BR>
+                            <button class="button is-link" name="searchButton">Submit</button>
+                        </div>
+                    </div>
                 </form>
-        
-        
           <?php
     }
 
@@ -96,21 +87,14 @@ class PageFacilitiesShip{
             <input type="hidden" name="post" value="add">
             <div class="field">
              <label class="label">Ships</label>
-               
-              
                <div class="select is-fullwidth">
                    <select name="shipOptions">
                        <option value="0">Please Select a Ship</option>
- 
                        <?php foreach($s as $ship){   ?>
- 
                        <OPTION value="<?php echo $ship->getShip()?>"><?php echo $ship->shipName?></OPTION>'; 
- 
-                     
                      <?php    } ?>
  
                    </select>
- 
                </div>
 
 
