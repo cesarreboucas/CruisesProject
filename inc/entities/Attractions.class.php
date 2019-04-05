@@ -2,10 +2,12 @@
 
 class Attractions {
 
+    //Attributes for Attractions
     private $id = 0;
     private $attraction = "";
     private $tour = 0;
 
+    //Attributes for Ship and Tour
     private $shipName;
     private $sailing_date;
 
@@ -20,6 +22,7 @@ class Attractions {
     +------------+-------------+------+-----+---------+----------------+
     */
 
+    //Setters
     public function setAttractionID($newID) {
         $this->id = $newID;
     }
@@ -36,6 +39,7 @@ class Attractions {
         return $this->id;
     }
 
+    //Getters
     public function getAttractionName() {
         return $this->attraction;
     }
@@ -48,8 +52,9 @@ class Attractions {
         return $this->shipName;
     }
 
+    //Get formated date
     public function getFormatedSailingDate() : String {
-        $date = @DateTime::createFromFormat("Y-m-d", $this->sailing_date );
+        $date = @DateTime::createFromFormat("Y-m-d", $this->sailing_date);
         if($date) {
             return $date->format('d-M-Y');
         } else {

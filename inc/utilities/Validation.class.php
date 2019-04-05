@@ -104,24 +104,30 @@ class Validation {
             return $messages;
         }
 
+        //Validation for Attractions
         public static function validateAttraction(& $e) {
 
+            // Check if the attraction name has a value
             if(empty($_POST['attraction']) || strlen(trim($_POST['attraction']))==0)
                 $e[] = 'Attraction name is missing.';
-    
-                settype($_POST['tour'], 'int');
+            
+            // Check if the tour is selected
+            settype($_POST['tour'], 'int');
             if(empty($_POST['tour']) ||!is_integer($_POST['tour']) || $_POST['tour']==0 || $_POST['tour']=="0")
                 $e[] = ('Tour information is missing.');
             
         }
     
+        //Validation for Ships
         public static function validateShip(& $e) {
-    
+            
+            // Check if the ship name has a value
             if(empty($_POST['name']) || strlen(trim($_POST['name']))==0)
                 $e[] = 'Ship name is missing.';
-    
+            
+            // Check if the ship year of service has a value
             settype($_POST['year'], 'int');
-            if(empty($_POST['year']) || !is_integer($_POST['year']) || $_POST['year']==0)
+            if(empty($_POST['year']) || !is_integer($_POST['year']) || $_POST['year']==0 || $_POST['tour']=="0")
                 $e[] = ('Year of service is missing.');
         }
 

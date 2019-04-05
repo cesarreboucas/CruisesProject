@@ -17,7 +17,7 @@ class Ships {
     +-------------+-------------+------+-----+---------+----------------+
     */
     
-
+    //Setters
     public function setShipID($newID) {
         $this->id = $newID;
     }
@@ -30,6 +30,7 @@ class Ships {
         $this->yearservice = $newYear;
     }
     
+    //Getters
     public function getShipID() {
         return $this->id;
     }

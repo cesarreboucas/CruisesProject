@@ -13,14 +13,21 @@ ShipsMapper::initialize();
 $ship = new Ships();
 
 if (!empty($_GET) && isset($_GET['act']) && is_numeric($_GET['shipID']))  {
+    
+    // Delete Ship
     if ($_GET["act"] == "delete")    {
         ShipsMapper::deleteShip($_GET["shipID"]);
         PageIndex::showMessages('Ship deleted.');
+    
+    // Show edit Ship in form
     } else if ($_GET['act']=='edit') {
         $ship = ShipsMapper::getShip($_GET['shipID']);
     } 
 } else if (!empty($_POST) && isset($_POST['shipID'])) {
+    
+    //Validate Ship
     Validation::validateShip($errors);
+    
     if (empty($errors)) {
         $ns = new Ships;
         $ns->setShipName($_POST["name"]);
@@ -28,9 +35,12 @@ if (!empty($_GET) && isset($_GET['act']) && is_numeric($_GET['shipID']))  {
         settype($_POST['shipID'], 'int');
         $ns->setShipID($_POST['shipID']);
 
+        // Create new Ship
         if($_POST['shipID'] == 0){
             ShipsMapper::createShip($ns);
             PageIndex::showMessages('Ship '. $ns->getShipName() .' added.');
+        
+        // Edit existing Ship
         } else {
             ShipsMapper::updateShip($ns);
             PageIndex::showMessages('Ship '. $ns->getShipName() .'  edited.');
