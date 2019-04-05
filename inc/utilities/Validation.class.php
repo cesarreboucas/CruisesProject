@@ -54,20 +54,24 @@ class Validation {
     }
 
 
+    //Validation for Facilities.php inputs
     public static function validateFacilities() : Array   {
 
         //Initialize and empty array
         $messages = array();
 
-        //Validate
+        //Validate the name input has a value
         if(strlen($_POST["name"]) == 0){
 
+            //add message if the input is missing
             $messages[] = "Facility Name infomation is missing";
         }
 
+        //return error messages
         return $messages;
     }
 
+    //Validate Facilities_Ship.php Form inputs
         public static function validateFacilitiesShip() : Array   {
 
             //Initialize and empty array
@@ -82,16 +86,21 @@ class Validation {
                     search button is clicked */
             }else{
 
+                //Determine if a value is choosen from the Ships dropbox is selected
                 if($_POST["shipOptions"] == 0){
     
+                    //No value, add a message for missing inputs
                     $messages[] = "Ship infomation is missing";
                 }
         
+                //Determmine if a value from the Facilities dropbox is selected
                 if($_POST["facilityOptions"] == 0){
         
+                    //No value, add a message for missing inputs
                     $messages[] = "Facility information is missing";
                 }
             }
+            //return error messages
             return $messages;
         }
 
