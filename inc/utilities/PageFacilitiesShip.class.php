@@ -20,7 +20,7 @@ class PageFacilitiesShip{
                 <td>'.$sf->facilityName.'</td>
                 <td style="text-align:center;">
                     <a href="'.$_SERVER['PHP_SELF'].'?action=edit&id='.$sf->getID().'"class="button is-primary">Edit</a>
-                    <a href="'.$_SERVER['PHP_SELF'].'?action=delete&id='.$sf->getID().'"class="button is-primary">Delete</a>
+                    <a href="'.$_SERVER['PHP_SELF'].'?action=delete&id='.$sf->getID().'"class="button is-warning">Delete</a>
                     </td>
             </tr>';
         }
