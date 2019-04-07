@@ -110,7 +110,6 @@ $stats = StatsMapper::getDateProjection();
 PageIndex::showTours($tour, $tours, $cities, $facilities, $ships, $attractions, $stats);
 PageIndex::MarkFilters($filters);
 
-
 PageIndex::footer();
 
 
