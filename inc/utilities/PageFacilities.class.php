@@ -15,7 +15,7 @@ class PageFacilities{
                     <td>'.$facility->getName().'</td>
                     <td style="text-align:center;">
                     <a href="'.$_SERVER['PHP_SELF'].'?action=edit&id='.$facility->getId().'" class="button is-primary">Edit</a>
-                    <a href="'.$_SERVER['PHP_SELF'].'?action=delete&id='.$facility->getId().'" class="button is-primary">Delete</a>
+                    <a href="'.$_SERVER['PHP_SELF'].'?action=delete&id='.$facility->getId().'" class="button is-warning">Delete</a>
                     </td>
                 </tr>';
             }

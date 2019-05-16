@@ -85,8 +85,7 @@ class PageIndex {
 
   // Showing the table tours and the aside filters
   static function showTours($tour, $tours, $cities, $facilities, $ships, $attractions, $stats) {
-      echo '
-      <div class="columns">
+      echo '<div class="columns">
         <div class="column">';
           // Calling the stats card
           self::showStat($stats);
@@ -110,6 +109,11 @@ class PageIndex {
           foreach($ships as $ship) {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Ship&addfilter='.$ship->getShipID().'"
               id="a_ship'.$ship->getShipID().'">'.trim($ship->getShipName()).'</a></br>';
+          }
+          echo '<p class="title is-6" style="margin:15px 0px 0px 0px;">Facilities</p>';
+          foreach($facilities as $facility) {
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?filter=Facility&addfilter='.$facility->getID().'"
+              id="a_fac'.$facility->getID().'">'.trim($facility->getName()).'</a></br>';
           }
           echo '<br/><a href="'.$_SERVER['PHP_SELF'].'?filter=none" class="button is-primary">Clear Filters</a>
         </div>  
@@ -137,8 +141,14 @@ class PageIndex {
             <td>
               <a href="'.$_SERVER['PHP_SELF'].'?id='.$t->getId().'&a=e" class="button is-primary">Edit</a>
               <a href="'.$_SERVER['PHP_SELF'].'?id='.$t->getId().'&a=d" class="button is-warning">Delete</a>
+              <button id="btn_dist'.$t->getId().'" class="button is-primary">Distance</button>
             </td>
-          </tr>';
+          </tr>
+          <script>
+            document.getElementById("btn_dist'.$t->getId().'").addEventListener("click", function() {
+              CheckDist(\''.$t->getFromCityName().'\',\''.$t->getToCityName().'\', "btn_dist'.$t->getId().'");
+            });
+          </script>';
       } 
       echo '<tr><th colspan="7">
         Your search returned '.sizeof($tours).' tours.</th></tr>';
@@ -240,7 +250,18 @@ class PageIndex {
           }          
           let sailing = bulmaCalendar.attach('#sailing', 
             {"dateFormat":"DD-MMM-YYYY", "timeFormat": ""});
-          
+
+          function CheckDist(a,b, object) {
+            const xhttp = new XMLHttpRequest();
+            let dist;
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(object).innerHTML = this.responseText;
+              }
+            };
+            xhttp.open("GET", 'getDistance.php?a='+a+'&b='+b, true);
+            xhttp.send();
+          }
     </script>
     </div>
     </div>
@@ -251,22 +272,28 @@ class PageIndex {
   
   // Marking the active filters as bold
   static function MarkFilters($filters) {
+    $id = "";
     echo '<script>';
     foreach($filters as $k => $f) {
       switch($k) {
         case 'Departure':
-          echo 'document.getElementById(\'a_dep'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_dep'.$f.'\'';
           break;
         case 'Destiny':
-          echo 'document.getElementById(\'a_des'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_des'.$f.'\'';
           break;
         case 'Ship':
-          echo 'document.getElementById(\'a_ship'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_ship'.$f.'\'';
           break;
         case 'Attraction':
-          echo 'document.getElementById(\'a_atr'.$f.'\').style.fontWeight = "bold";';
+          $id = '\'a_atr'.$f.'\'';          
+          break;
+        case 'Facility':
+          $id = '\'a_fac'.$f.'\'';
           break;
       }
+      echo 'document.getElementById('.$id.').style.fontWeight = "bold";
+        ';
     }
     echo '</script>';
     
@@ -351,7 +378,7 @@ class PageIndex {
         
         </div>
         <footer>
-          <strong><h4>(Cruises) Ana Paula Ruiz Pontes - Cesar Reboucas - Lindsey Fergunson</h4></strong>
+          <strong><h4>(Cruises) Ana Paula Ruiz Pontes - Cesar Reboucas - Lindsey Gunderson</h4></strong>
           <img src="img/wave.png">
         </footer >
       </body>
