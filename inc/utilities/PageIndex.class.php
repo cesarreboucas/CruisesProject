@@ -85,8 +85,7 @@ class PageIndex {
 
   // Showing the table tours and the aside filters
   static function showTours($tour, $tours, $cities, $facilities, $ships, $attractions, $stats) {
-      echo '
-      <div class="columns">
+      echo '<div class="columns">
         <div class="column">';
           // Calling the stats card
           self::showStat($stats);
@@ -142,8 +141,14 @@ class PageIndex {
             <td>
               <a href="'.$_SERVER['PHP_SELF'].'?id='.$t->getId().'&a=e" class="button is-primary">Edit</a>
               <a href="'.$_SERVER['PHP_SELF'].'?id='.$t->getId().'&a=d" class="button is-warning">Delete</a>
+              <button id="btn_dist'.$t->getId().'" class="button is-primary">Distance</button>
             </td>
-          </tr>';
+          </tr>
+          <script>
+            document.getElementById("btn_dist'.$t->getId().'").addEventListener("click", function() {
+              CheckDist(\''.$t->getFromCityName().'\',\''.$t->getToCityName().'\', "btn_dist'.$t->getId().'");
+            });
+          </script>';
       } 
       echo '<tr><th colspan="7">
         Your search returned '.sizeof($tours).' tours.</th></tr>';
@@ -245,7 +250,18 @@ class PageIndex {
           }          
           let sailing = bulmaCalendar.attach('#sailing', 
             {"dateFormat":"DD-MMM-YYYY", "timeFormat": ""});
-          
+
+          function CheckDist(a,b, object) {
+            const xhttp = new XMLHttpRequest();
+            let dist;
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(object).innerHTML = this.responseText;
+              }
+            };
+            xhttp.open("GET", 'getDistance.php?a='+a+'&b='+b, true);
+            xhttp.send();
+          }
     </script>
     </div>
     </div>
